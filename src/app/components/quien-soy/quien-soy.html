@@ -1,0 +1,33 @@
+<div class="card p-4" style="max-width:800px;margin:auto;">
+  <h3>Quién soy</h3>
+
+  <div *ngIf="user$ | async as user; else loading">
+    <div class="d-flex">
+      <img [src]="user.avatar_url" alt="avatar" class="avatar">
+      <div>
+        <h4>{{ user.name || user.login }}</h4>
+        <p>{{ user.bio }}</p>
+        <p><strong>Ubicación:</strong> {{ user.location || '—' }}</p>
+        <p>
+          <strong>Repos públicos:</strong> {{ user.public_repos }}
+          — <strong>Seguidores:</strong> {{ user.followers }}
+        </p>
+        <p><a [href]="user.html_url" target="_blank">Perfil en GitHub</a></p>
+      </div>
+    </div>
+
+    <hr>
+    <h5>Juego propio — explicación</h5>
+    <p>
+      Elección del juego propio: <strong>Memory Rápido de Secuencias</strong>.
+      <br>
+      Explicación: El jugador ve una secuencia de colores/letras por 3 segundos;
+      luego debe reproducirla. Cada nivel añade un elemento. Se mide tiempo y precisión.
+    </p>
+    <p>Motivo de la elección: permite evaluar memoria de trabajo y respuesta motriz en una interfaz simple.</p>
+  </div>
+
+  <ng-template #loading>
+    <p>Cargando datos desde GitHub...</p>
+  </ng-template>
+</div>

@@ -1,0 +1,34 @@
+<div class="card p-4" style="max-width:400px;margin:auto;">
+  <h3 class="text-center mb-3">Registro</h3>
+
+  <div *ngIf="errorMsg" class="alert alert-danger">{{ errorMsg }}</div>
+
+  <form (ngSubmit)="register()">
+    <div class="mb-3">
+      <label>Nombre</label>
+      <input [(ngModel)]="firstName" name="firstName" type="text" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+      <label>Apellido</label>
+      <input [(ngModel)]="lastName" name="lastName" type="text" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+      <label>Edad</label>
+      <input [(ngModel)]="age" name="age" type="number" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+      <label>Email</label>
+      <input [(ngModel)]="email" name="email" type="email" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+      <label>Contraseña</label>
+      <input [(ngModel)]="password" name="password" type="password" class="form-control" required>
+    </div>
+
+    <button class="btn btn-success w-100" type="submit">Registrarse</button>
+  </form>
+</div>

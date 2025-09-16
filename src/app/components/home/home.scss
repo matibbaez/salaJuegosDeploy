@@ -1,0 +1,20 @@
+.home-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-top: 80px;
+}
+
+.home-icon {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+/* Animación al pasar el mouse */
+.home-icon:hover {
+    transform: scale(1.2) rotate(-10deg);
+}

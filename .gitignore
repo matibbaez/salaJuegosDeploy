@@ -1,0 +1,45 @@
+# Node modules
+/node_modules/
+
+# Angular build output
+/dist/
+/out-tsc/
+/.angular/cache/
+
+# Angular environment files (si tienen secretos)
+src/environments/*.ts
+
+# Editor/IDE
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Dependency directories
+jspm_packages/
+
+# Compiled output
+*.js
+*.js.map
+*.d.ts
+*.tsbuildinfo
+
+# Optional: Vercel local config
+.vercel/
+
+# Temporary files
+*.tmp
+*.swp
+*.bak

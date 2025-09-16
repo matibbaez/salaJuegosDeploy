@@ -1,0 +1,21 @@
+@import "bootstrap/dist/css/bootstrap.min.css";
+
+.navbar-icon {
+  width: 90px;      
+  height: 90px;     
+  object-fit: contain;
+  margin-right: 8px; 
+  transition: transform 0.2s ease;
+}
+
+.navbar-icon:hover {
+  transform: scale(1.1) rotate(-10deg);
+}
+
+.navbar {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.navbar-dark .navbar-nav .nav-link.active {
+  color: #ffffff; 
+}
