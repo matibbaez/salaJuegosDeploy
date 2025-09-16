@@ -6,8 +6,8 @@
 /out-tsc/
 /.angular/cache/
 
-# Angular environment files (si tienen secretos)
-src/environments/*.ts
+# Environment de desarrollo (secretos locales)
+src/environments/environment.ts
 
 # Editor/IDE
 .vscode/
@@ -43,3 +43,4 @@ jspm_packages/
 *.tmp
 *.swp
 *.bak
+
