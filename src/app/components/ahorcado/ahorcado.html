@@ -1,0 +1,25 @@
+<div class="card p-3">
+  <h4>Ahorcado</h4>
+  <div class="word my-3">
+    <span *ngFor="let ch of word.split(''); let i = index" class="letter">
+      {{ revealed()[i] ? ch : '_' }}
+    </span>
+  </div>
+
+  <div class="keyboard mb-3">
+    <button *ngFor="let l of alphabet"
+            class="btn btn-outline-primary m-1"
+            [disabled]="letterDisabled(l)"
+            (click)="pick(l)">
+      {{ l }}
+    </button>
+  </div>
+
+  <p>Incorrectas: {{ wrong() }} / {{ maxWrong }}</p>
+
+  <div *ngIf="finished()">
+    <div *ngIf="won()">¡Ganaste!</div>
+    <div *ngIf="!won()">Perdiste — palabra: {{ word }}</div>
+    <button class="btn btn-secondary mt-2" (click)="reset()">Jugar otra vez</button>
+  </div>
+</div>

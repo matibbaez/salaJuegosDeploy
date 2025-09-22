@@ -1,0 +1,9 @@
+.chat-list {
+  max-height: 300px;
+  overflow-y: auto;
+  background: #f8f9fa;
+  padding: 0.5rem;
+}
+.my-msg { background: #d1e7dd; text-align: right; }
+.other-msg { background: #ffffff; text-align: left; }
+.chat-row .meta { font-size: 0.75rem; }

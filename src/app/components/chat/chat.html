@@ -1,0 +1,15 @@
+<div class="card p-3">
+  <h4>Sala de Chat</h4>
+
+  <div id="chat-list" class="chat-list mb-3">
+    <div *ngFor="let m of messages" [ngClass]="{'my-msg': isMine(m), 'other-msg': !isMine(m)}" class="chat-row p-2 mb-1 rounded">
+      <div class="meta small text-muted">{{ m.username || 'Invitado' }} • {{ m.created_at | date:'shortTime' }}</div>
+      <div class="msg-text">{{ m.message }}</div>
+    </div>
+  </div>
+
+  <div class="d-flex">
+    <input class="form-control me-2" [(ngModel)]="text" (keyup.enter)="send()" placeholder="Escribe un mensaje..." />
+    <button class="btn btn-primary" (click)="send()">Enviar</button>
+  </div>
+</div>
