@@ -1,44 +1,67 @@
-<div class="card p-4" style="max-width:400px;margin:auto;">
-  <h3 class="text-center mb-3">Registro</h3>
+<div class="d-flex justify-content-center">
+  <div class="card shadow-lg p-4 rounded-4" style="max-width: 420px; width: 100%;">
+    <div class="text-center mb-4">
+      <img src="matiPlay2.png" alt="Logo" width="60" class="mb-2">
+      <h3 class="fw-bold">Registro</h3>
+      <p class="text-muted">Crea tu cuenta en segundos</p>
+    </div>
 
-  <div *ngIf="errorMsg" class="alert alert-danger">{{ errorMsg }}</div>
+    <div *ngIf="errorMsg" class="alert alert-danger small">{{ errorMsg }}</div>
 
-  <form (ngSubmit)="register()" #registroForm="ngForm" novalidate>
-    <div class="mb-3">
-      <label>Nombre</label>
-      <input [(ngModel)]="firstName" name="firstName" type="text" class="form-control" required #firstNameInput="ngModel">
-      <div *ngIf="firstNameInput.invalid && firstNameInput.touched" class="text-danger">
+    <form (ngSubmit)="register()" #registroForm="ngForm" novalidate>
+      
+      <!-- Nombre -->
+      <div class="mb-3 input-group">
+        <span class="input-group-text bg-light"><i class="bi bi-person"></i></span>
+        <input [(ngModel)]="firstName" name="firstName" type="text" class="form-control" placeholder="Nombre" required #firstNameInput="ngModel">
+      </div>
+      <div *ngIf="firstNameInput.invalid && firstNameInput.touched" class="text-danger small ms-1">
         El nombre es obligatorio
       </div>
-    </div>
 
-    <div class="mb-3">
-      <label>Apellido</label>
-      <input [(ngModel)]="lastName" name="lastName" type="text" class="form-control" required #lastNameInput="ngModel">
-      <div *ngIf="lastNameInput.invalid && lastNameInput.touched" class="text-danger">
+      <!-- Apellido -->
+      <div class="mb-3 input-group">
+        <span class="input-group-text bg-light"><i class="bi bi-person-badge"></i></span>
+        <input [(ngModel)]="lastName" name="lastName" type="text" class="form-control" placeholder="Apellido" required #lastNameInput="ngModel">
+      </div>
+      <div *ngIf="lastNameInput.invalid && lastNameInput.touched" class="text-danger small ms-1">
         El apellido es obligatorio
       </div>
-    </div>
 
-    <div class="mb-3">
-      <label>Edad</label>
-      <input [(ngModel)]="age" name="age" type="number" class="form-control" required #ageInput="ngModel">
-      <div *ngIf="ageInput.invalid && ageInput.touched" class="text-danger">
+      <!-- Edad -->
+      <div class="mb-3 input-group">
+        <span class="input-group-text bg-light"><i class="bi bi-calendar"></i></span>
+        <input [(ngModel)]="age" name="age" type="number" class="form-control" placeholder="Edad" required #ageInput="ngModel">
+      </div>
+      <div *ngIf="ageInput.invalid && ageInput.touched" class="text-danger small ms-1">
         Ingresa una edad válida
       </div>
-    </div>
 
-    <div class="mb-3"> <label>Email</label> <input [(ngModel)]="email" name="email" type="email" class="form-control" required> </div>
-
-    <div class="mb-3">
-      <label>Contraseña</label>
-      <input [(ngModel)]="password" name="password" type="password" class="form-control" required minlength="6" #passInput="ngModel">
-      <div *ngIf="passInput.invalid && passInput.touched" class="text-danger">
-        <div *ngIf="passInput.errors?.['required']">La contraseña es obligatoria</div>
-        <div *ngIf="passInput.errors?.['minlength']">La contraseña debe tener al menos 6 caracteres</div>
+      <!-- Email -->
+      <div class="mb-3 input-group">
+        <span class="input-group-text bg-light"><i class="bi bi-envelope"></i></span>
+        <input [(ngModel)]="email" name="email" type="email" class="form-control" placeholder="Correo electrónico" required>
       </div>
-    </div>
 
-    <button class="btn btn-success w-100" type="submit" [disabled]="registroForm.invalid">Registrarse</button>
-  </form>
+      <!-- Contraseña -->
+      <div class="mb-3 input-group">
+        <span class="input-group-text bg-light"><i class="bi bi-lock"></i></span>
+        <input [(ngModel)]="password" name="password" type="password" 
+               class="form-control" placeholder="Contraseña" 
+               required minlength="6" 
+               pattern="^(?=.*[A-Z]).+$"
+               #passInput="ngModel">
+      </div>
+      <div *ngIf="passInput.invalid && passInput.touched" class="text-danger small ms-1">
+        <div *ngIf="passInput.errors?.['required']">La contraseña es obligatoria</div>
+        <div *ngIf="passInput.errors?.['minlength']">Debe tener al menos 6 caracteres</div>
+        <div *ngIf="passInput.errors?.['pattern']">Debe incluir al menos una letra mayúscula</div>
+      </div>
+
+      <!-- Botón -->
+      <button class="btn btn-success w-100 mt-3 rounded-3" type="submit" [disabled]="registroForm.invalid">
+        <i class="bi bi-person-plus me-1"></i> Registrarse
+      </button>
+    </form>
+  </div>
 </div>
