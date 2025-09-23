@@ -20,6 +20,8 @@ export class MayorMenorComponent {
   rounds = signal(0);
   finished = signal(false);
 
+  readonly maxRounds = 10; // 🔹 límite de rondas
+
   constructor(private games: GamesService, private auth: AuthService) {
     this.resetDeck();
     this.draw();
@@ -29,7 +31,7 @@ export class MayorMenorComponent {
     this.deck = [];
     const suits = ['♠','♥','♦','♣'];
     for (let s of suits) {
-      for (let v=1; v<=13; v++) {
+      for (let v = 1; v <= 13; v++) {
         const label = v === 1 ? 'A' : v === 11 ? 'J' : v === 12 ? 'Q' : v === 13 ? 'K' : String(v);
         this.deck.push({ suit: s, value: v, label });
       }
@@ -42,28 +44,38 @@ export class MayorMenorComponent {
   }
 
   draw() {
-    if (this.deck.length === 0) { this.finished.set(true); return; }
+    if (this.deck.length === 0) { 
+      this.finished.set(true); 
+      return; 
+    }
     this.current = this.next ?? this.deck.pop();
     this.next = this.deck.pop();
   }
 
   async guess(higher: boolean) {
-    if (!this.current || !this.next) return;
+    if (!this.current || !this.next || this.finished()) return;
+
     this.rounds.update(r => r + 1);
+
     const nextVal = this.next.value;
-    const correct = higher ? nextVal > this.current.value : nextVal < this.current.value;
-    if (correct) this.correct.update(c => c + 1);
-    // si empatan (igual) consideramos incorrecto
-    // avanzar
+    const isCorrect = higher ? nextVal > this.current.value : nextVal < this.current.value;
+    if (isCorrect) this.correct.update(c => c + 1);
+
+    // avanzar cartas
     this.current = this.next;
     this.next = this.deck.pop();
-    if (!this.current || !this.next) {
+
+    // 🔹 condición de fin: o se acaban rondas o se acaban cartas
+    if (this.rounds() >= this.maxRounds || !this.current || !this.next) {
       this.finished.set(true);
       await this.finishGame();
     }
   }
 
   async finishGame() {
+    // 🔹 solo guardar si alcanzamos al menos 1 ronda
+    if (this.rounds() === 0) return;
+
     const user = this.auth.getCurrentUser();
     try {
       await this.games.saveHigherLowerResult({
@@ -73,7 +85,7 @@ export class MayorMenorComponent {
         total_rounds: this.rounds()
       });
     } catch (e) {
-      console.error('Save higher/lower failed', e);
+      console.error('❌ Error al guardar resultado', e);
     }
   }
 

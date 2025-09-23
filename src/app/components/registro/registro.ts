@@ -25,12 +25,11 @@ export class RegistroComponent {
       await this.authService.signUp(
         this.email,
         this.password,
-        this.firstName,
-        this.lastName,
-        this.age || 0
+        this.firstName, 
+        this.lastName,   
+        this.age || 0   
       );
-      // iniciar sesión automáticamente
-      await this.authService.signIn(this.email, this.password);
+
       this.router.navigate(['/home']);
     } catch (error: any) {
       this.errorMsg = error.message || 'Error al registrarse';
