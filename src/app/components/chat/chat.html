@@ -1,15 +1,31 @@
-<div class="card p-3">
-  <h4>Sala de Chat</h4>
+<div class="chat-container card shadow-lg border-0">
+  <div class="chat-header p-3 border-bottom">
+    <h4 class="m-0">💬 Sala de Chat</h4>
+  </div>
 
-  <div id="chat-list" class="chat-list mb-3">
-    <div *ngFor="let m of messages" [ngClass]="{'my-msg': isMine(m), 'other-msg': !isMine(m)}" class="chat-row p-2 mb-1 rounded">
-      <div class="meta small text-muted">{{ m.username || 'Invitado' }} • {{ m.created_at | date:'shortTime' }}</div>
-      <div class="msg-text">{{ m.message }}</div>
+  <div id="chat-list" class="chat-list flex-grow-1 p-3">
+    <div 
+      *ngFor="let m of messages" 
+      [ngClass]="{'my-msg': isMine(m), 'other-msg': !isMine(m)}" 
+      class="chat-row mb-3"
+    >
+      <div class="msg-bubble p-2 rounded shadow-sm">
+        <div class="meta small fw-bold mb-1">
+          {{ m.username || 'Invitado' }}
+          <span class="text-muted"> • {{ m.created_at | date:'shortTime' }}</span>
+        </div>
+        <div class="msg-text">{{ m.message }}</div>
+      </div>
     </div>
   </div>
 
-  <div class="d-flex">
-    <input class="form-control me-2" [(ngModel)]="text" (keyup.enter)="send()" placeholder="Escribe un mensaje..." />
-    <button class="btn btn-primary" (click)="send()">Enviar</button>
+  <div class="chat-input p-3 border-top d-flex">
+    <input 
+      class="form-control me-2 rounded-pill shadow-sm" 
+      [(ngModel)]="text" 
+      (keyup.enter)="send()" 
+      placeholder="Escribe un mensaje..." 
+    />
+    <button class="btn btn-primary rounded-pill px-4 shadow-sm" (click)="send()">Enviar</button>
   </div>
 </div>

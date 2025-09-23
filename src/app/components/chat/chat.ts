@@ -34,8 +34,16 @@ export class ChatComponent implements OnInit, OnDestroy {
 
     // suscribirse a nuevos mensajes en tiempo real
     this.unsubscribe = this.chatService.onNewMessage((msg) => {
-      this.messages = [msg, ...this.messages]; // prepend para que se vea arriba
+      this.messages = [...this.messages, msg]; // ahora aparece abajo
+      setTimeout(() => this.scrollToBottom(), 50); // autoscroll al último mensaje
     });
+  }
+
+  scrollToBottom() {
+    const chatList = document.getElementById('chat-list');
+    if (chatList) {
+      chatList.scrollTop = chatList.scrollHeight;
+    }
   }
 
   ngOnDestroy() {

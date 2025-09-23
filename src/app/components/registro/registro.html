@@ -3,32 +3,42 @@
 
   <div *ngIf="errorMsg" class="alert alert-danger">{{ errorMsg }}</div>
 
-  <form (ngSubmit)="register()">
+  <form (ngSubmit)="register()" #registroForm="ngForm" novalidate>
     <div class="mb-3">
       <label>Nombre</label>
-      <input [(ngModel)]="firstName" name="firstName" type="text" class="form-control" required>
+      <input [(ngModel)]="firstName" name="firstName" type="text" class="form-control" required #firstNameInput="ngModel">
+      <div *ngIf="firstNameInput.invalid && firstNameInput.touched" class="text-danger">
+        El nombre es obligatorio
+      </div>
     </div>
 
     <div class="mb-3">
       <label>Apellido</label>
-      <input [(ngModel)]="lastName" name="lastName" type="text" class="form-control" required>
+      <input [(ngModel)]="lastName" name="lastName" type="text" class="form-control" required #lastNameInput="ngModel">
+      <div *ngIf="lastNameInput.invalid && lastNameInput.touched" class="text-danger">
+        El apellido es obligatorio
+      </div>
     </div>
 
     <div class="mb-3">
       <label>Edad</label>
-      <input [(ngModel)]="age" name="age" type="number" class="form-control" required>
+      <input [(ngModel)]="age" name="age" type="number" class="form-control" required #ageInput="ngModel">
+      <div *ngIf="ageInput.invalid && ageInput.touched" class="text-danger">
+        Ingresa una edad válida
+      </div>
     </div>
 
-    <div class="mb-3">
-      <label>Email</label>
-      <input [(ngModel)]="email" name="email" type="email" class="form-control" required>
-    </div>
+    <div class="mb-3"> <label>Email</label> <input [(ngModel)]="email" name="email" type="email" class="form-control" required> </div>
 
     <div class="mb-3">
       <label>Contraseña</label>
-      <input [(ngModel)]="password" name="password" type="password" class="form-control" required>
+      <input [(ngModel)]="password" name="password" type="password" class="form-control" required minlength="6" #passInput="ngModel">
+      <div *ngIf="passInput.invalid && passInput.touched" class="text-danger">
+        <div *ngIf="passInput.errors?.['required']">La contraseña es obligatoria</div>
+        <div *ngIf="passInput.errors?.['minlength']">La contraseña debe tener al menos 6 caracteres</div>
+      </div>
     </div>
 
-    <button class="btn btn-success w-100" type="submit">Registrarse</button>
+    <button class="btn btn-success w-100" type="submit" [disabled]="registroForm.invalid">Registrarse</button>
   </form>
 </div>
