@@ -1,23 +1,46 @@
-<div class="card p-3">
-  <h4>Mayor o Menor</h4>
+<div class="mayor-menor-container card shadow-lg p-4">
 
-  <div class="d-flex align-items-center gap-3 my-3">
-    <div class="card p-3 text-center" style="min-width:120px;">
-      <div class="card-value">{{ current?.label }}</div>
-      <div class="card-suit">{{ current?.suit }}</div>
+  <!-- Título -->
+  <div class="text-center mb-4">
+    <h2 class="fw-bold text-gradient">Mayor o Menor</h2>
+    <p class="text-muted">Adivina si la siguiente carta será mayor o menor</p>
+  </div>
+
+  <!-- Cartas y botones -->
+  <div class="d-flex flex-column flex-md-row align-items-center justify-content-center gap-4 my-4">
+
+    <!-- Carta actual -->
+    <div class="playing-card shadow">
+      <div class="value">{{ current?.label }}</div>
+      <div class="suit">{{ current?.suit }}</div>
     </div>
 
-    <div>
-      <button class="btn btn-success me-2" (click)="guess(true)" [disabled]="finished()">Mayor</button>
-      <button class="btn btn-danger" (click)="guess(false)" [disabled]="finished()">Menor</button>
+    <!-- Botones -->
+    <div class="d-flex flex-column gap-3">
+      <button class="btn btn-lg btn-success px-4" (click)="guess(true)" [disabled]="finished()">
+        🔼 Mayor
+      </button>
+      <button class="btn btn-lg btn-danger px-4" (click)="guess(false)" [disabled]="finished()">
+        🔽 Menor
+      </button>
     </div>
   </div>
 
-  <p>Acertadas: {{ correct() }} / Rondas: {{ rounds() }}</p>
-
-  <div *ngIf="finished()">
-    <p>Fin del mazo. Resultado guardado.</p>
-    <button class="btn btn-secondary" (click)="restart()">Jugar otra</button>
+  <!-- Marcador -->
+  <div class="scoreboard text-center my-3">
+    <p class="mb-1 fs-5">
+      Acertadas: <span class="fw-bold text-success">{{ correct() }}</span>
+    </p>
+    <p class="mb-0 fs-5">
+      Rondas: <span class="fw-bold">{{ rounds() }} / {{ maxRounds }}</span>
+    </p>
   </div>
+
+  <!-- Final del juego -->
+  <div *ngIf="finished()" class="text-center mt-4">
+    <h4 class="text-primary">¡Fin del juego!</h4>
+    <p class="text-white">Resultado guardado con éxito</p>
+    <button class="btn btn-outline-primary mt-2" (click)="restart()">Jugar otra vez</button>
+  </div>
+
 </div>
-

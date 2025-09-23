@@ -1,2 +1,109 @@
-.card-value { font-size: 1.6rem; font-weight:700; }
-.card-suit { font-size: 1.2rem; }
+.mayor-menor-container {
+  background: #1e1e2f;
+  border-radius: 1rem;
+  padding: 2rem;
+  max-width: 600px;
+  margin: auto;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  color: #f8f9fa;
+  text-align: center;
+
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #f5f5f5; // violeta suave como en el hangman
+    font-weight: bold;
+  }
+
+  .playing-card {
+    width: 130px;
+    height: 180px;
+    border-radius: 12px;
+    background: #ffffff; // carta blanca
+    border: 2px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: bold;
+    margin: auto;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    .value {
+      font-size: 2.4rem;
+      margin-bottom: 0.5rem;
+      color: #111; // texto oscuro para contraste
+    }
+
+    .suit {
+      font-size: 2rem;
+      color: #111; // palos también en oscuro
+    }
+
+    &:hover {
+      transform: scale(1.08);
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3);
+    }
+  }
+
+  .btn {
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 0.6rem 1.2rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    }
+
+    &.btn-success {
+      background: #10b981; // verde suave (emerald)
+      border: none;
+    }
+
+    &.btn-danger {
+      background: #ef4444; // rojo intenso
+      border: none;
+    }
+
+    &.btn-secondary {
+      background: #374151; // gris oscuro
+      border: none;
+    }
+  }
+
+  .scoreboard {
+    background: #2d2d44;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-top: 1.5rem;
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.3);
+
+    p {
+      margin: 0.4rem 0;
+      font-size: 1.1rem;
+
+      span {
+        font-weight: bold;
+        color: #a78bfa; // mismo violeta de acento
+      }
+    }
+  }
+
+  /* Animación de fade-in */
+  animation: fadeIn 0.6s ease-in-out;
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}

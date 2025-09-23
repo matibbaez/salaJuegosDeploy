@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GamesService } from '../../services/games.service';
 import { AuthService } from '../../services/auth.service';
@@ -11,74 +11,88 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./ahorcado.scss']
 })
 export class AhorcadoComponent {
-  // palabras de ejemplo 
-  private words = ['angular','supabase','memoria','juego','prueba','component'];
+  // Lista de palabras posibles
+  private palabras = ['angular', 'supabase', 'memoria', 'juego', 'prueba', 'componente'];
 
-  // estado del juego
-  word = this.words[Math.floor(Math.random()*this.words.length)];
-  revealed = signal(new Array(this.word.length).fill(false));
-  guessed = signal(new Set<string>());
-  wrong = signal(0);
-  maxWrong = 6;
-  startTime = Date.now();
-  finished = signal(false);
-  won = signal(false);
+  // Estado del juego
+  palabra = this.palabras[Math.floor(Math.random() * this.palabras.length)];
+  reveladas = signal(new Array(this.palabra.length).fill(false)); // letras reveladas
+  letrasIntentadas = signal(new Set<string>()); // letras que ya probó
+  errores = signal(0); // cantidad de errores
+  maxErrores = 6; // límite de errores
+  tiempoInicio = Date.now();
+  terminado = signal(false);
+  gano = signal(false);
 
-  alphabet = 'abcdefghijklmnñopqrstuvwxyz'.split('');
+  // Alfabeto (incluye la ñ)
+  alfabeto = 'abcdefghijklmnñopqrstuvwxyz'.split('');
 
-  constructor(private games: GamesService, private auth: AuthService) {}
+  constructor(private juegos: GamesService, private auth: AuthService) {}
 
-  letterDisabled(letter: string) {
-    return this.guessed().has(letter) || this.finished();
+  // Saber si un botón de letra debe estar deshabilitado
+  letraDeshabilitada(letra: string) {
+    return this.letrasIntentadas().has(letra) || this.terminado();
   }
 
-  pick(letter: string) {
-    if (this.finished()) return;
-    this.guessed().add(letter);
-    const idxs = [];
-    for (let i = 0; i < this.word.length; i++) {
-      if (this.word[i] === letter) idxs.push(i);
+  // Cuando el usuario elige una letra
+  elegir(letra: string) {
+    if (this.terminado()) return;
+
+    this.letrasIntentadas().add(letra);
+
+    const indices: number[] = [];
+    for (let i = 0; i < this.palabra.length; i++) {
+      if (this.palabra[i] === letra) indices.push(i);
     }
-    if (idxs.length === 0) {
-      this.wrong.update(w => w + 1);
-      if (this.wrong() >= this.maxWrong) {
-        this.end(false);
+
+    if (indices.length === 0) {
+      // Falló la letra
+      this.errores.update(e => e + 1);
+      if (this.errores() >= this.maxErrores) {
+        this.finalizar(false);
       }
     } else {
-      const arr = [...this.revealed()];
-      idxs.forEach(i => arr[i] = true);
-      this.revealed.set(arr);
-      if (arr.every(Boolean)) this.end(true);
+      // Acertó la letra → revelar posiciones
+      const arr = [...this.reveladas()];
+      indices.forEach(i => arr[i] = true);
+      this.reveladas.set(arr);
+
+      // Si reveló todas, gana
+      if (arr.every(Boolean)) this.finalizar(true);
     }
   }
 
-  async end(didWin: boolean) {
-    this.finished.set(true);
-    this.won.set(didWin);
-    const time_ms = Date.now() - this.startTime;
-    const user = this.auth.getCurrentUser();
+  // Finalizar la partida
+  async finalizar(ganoPartida: boolean) {
+    this.terminado.set(true);
+    this.gano.set(ganoPartida);
+
+    const tiempo_ms = Date.now() - this.tiempoInicio;
+    const usuario = this.auth.getCurrentUser();
+
     try {
-      await this.games.saveHangmanResult({
-        user_id: user?.id ?? null,
-        username: (user as any)?.email ?? null,
-        word: this.word,
-        won: didWin,
-        time_ms,
-        guesses: this.guessed().size,
-        wrong_guesses: this.wrong()
+      await this.juegos.saveHangmanResult({
+        user_id: usuario?.id ?? null,
+        username: (usuario as any)?.email ?? null,
+        word: this.palabra,
+        won: ganoPartida,
+        time_ms: tiempo_ms,
+        guesses: this.letrasIntentadas().size,
+        wrong_guesses: this.errores()
       });
     } catch (e) {
-      console.error('Save hangman failed', e);
+      console.error('Error al guardar resultado del ahorcado', e);
     }
   }
 
-  reset() {
-    this.word = this.words[Math.floor(Math.random()*this.words.length)];
-    this.revealed.set(new Array(this.word.length).fill(false));
-    this.guessed.set(new Set<string>());
-    this.wrong.set(0);
-    this.startTime = Date.now();
-    this.finished.set(false);
-    this.won.set(false);
+  // Reiniciar la partida
+  reiniciar() {
+    this.palabra = this.palabras[Math.floor(Math.random() * this.palabras.length)];
+    this.reveladas.set(new Array(this.palabra.length).fill(false));
+    this.letrasIntentadas.set(new Set<string>());
+    this.errores.set(0);
+    this.tiempoInicio = Date.now();
+    this.terminado.set(false);
+    this.gano.set(false);
   }
 }
