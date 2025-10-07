@@ -1,5 +1,5 @@
 import { Component, signal, OnInit } from '@angular/core';
-import { CommonModule, NgIf, NgClass } from '@angular/common'; // Agrega NgClass para estilos condicionales
+import { CommonModule, NgIf, NgClass } from '@angular/common'; 
 import { GamesService } from '../../services/games.service';
 import { AuthService } from '../../services/auth.service';
 import { QuizService, Question } from '../../services/quiz.service';
@@ -10,14 +10,14 @@ interface QuestionHistory {
   question: string;
   options: string[];
   correctIndex: number;
-  userAnswerIndex: number; // Índice de la opción que el usuario seleccionó
+  userAnswerIndex: number; 
   isCorrect: boolean;
 }
 
 @Component({
   selector: 'app-preguntados',
   standalone: true,
-  imports: [CommonModule, HttpClientModule, NgIf, NgClass], // Asegúrate de incluir NgClass
+  imports: [CommonModule, HttpClientModule, NgIf, NgClass], 
   templateUrl: './preguntados.html',
   styleUrls: ['./preguntados.scss']
 })
