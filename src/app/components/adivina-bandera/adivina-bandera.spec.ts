@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RankingGlobal } from './ranking-global';
+import { AdivinaBandera } from './adivina-bandera';
 
-describe('RankingGlobal', () => {
-  let component: RankingGlobal;
-  let fixture: ComponentFixture<RankingGlobal>;
+describe('AdivinaBandera', () => {
+  let component: AdivinaBandera;
+  let fixture: ComponentFixture<AdivinaBandera>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RankingGlobal]
+      imports: [AdivinaBandera]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(RankingGlobal);
+    fixture = TestBed.createComponent(AdivinaBandera);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

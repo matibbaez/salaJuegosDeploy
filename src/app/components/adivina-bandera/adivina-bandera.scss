@@ -1,0 +1,170 @@
+.contenedor-adivina-bandera {
+  max-width: 600px;
+  margin: 2rem auto;
+  background-color: #ffffff;
+  border-radius: 8px;
+  animation: fadeIn 0.8s ease-out;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+h2 {
+  color: #007bff;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+}
+
+.pantalla-bandera {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+  padding: 1.5rem;
+  min-height: 250px; /* Asegura un tamaño mínimo */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease-in-out;
+
+  .imagen-bandera {
+    max-width: 90%;
+    height: 150px; /* Altura fija para la imagen */
+    object-fit: contain; /* Asegura que la imagen se ajuste sin distorsionarse */
+    border: 1px solid #ccc; /* Borde sutil para la bandera */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    border-radius: 4px;
+    transition: transform 0.3s ease-in-out;
+  }
+  .imagen-bandera:hover {
+    transform: scale(1.02);
+  }
+}
+
+.seccion-entrada {
+  input {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+    font-size: 1.2rem;
+  }
+  input:focus {
+    border-color: #0056b3;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.4);
+  }
+
+  .d-flex { /* Estilos para el contenedor de botones */
+    button {
+      font-weight: bold;
+      transition: background-color 0.2s, border-color 0.2s, transform 0.2s;
+    }
+    .btn-primary { /* Botón Adivinar */
+      background-color: #007bff;
+      border-color: #007bff;
+    }
+    .btn-primary:hover:not(:disabled) {
+      background-color: #0056b3;
+      border-color: #0056b3;
+      transform: translateY(-1px);
+    }
+    .btn-warning { /* Botón Saltar Bandera */
+      background-color: #ffc107;
+      border-color: #ffc107;
+      color: #343a40; /* Texto oscuro para contraste */
+    }
+    .btn-warning:hover:not(:disabled) {
+      background-color: #e0a800;
+      border-color: #e0a800;
+      transform: translateY(-1px);
+    }
+    button:disabled {
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+  }
+}
+
+/* ... (código CSS anterior) ... */
+
+.alert {
+  font-size: 1.1rem;
+  font-weight: 500;
+  border-radius: 5px;
+  animation: slideIn 0.4s ease-out;
+  margin-top: 1rem; // Ajuste para el espacio
+  padding: 1rem 1.5rem; // Ajuste de padding
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+  border-color: #c3e6cb;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+  border-color: #f5c6cb;
+}
+
+/* --- NUEVO ESTILO PARA MENSAJES DE SALTO/LÍMITE EXCEDIDO --- */
+.alert-skipped {
+  background-color: #fff3cd; /* Un amarillo suave, como el botón de advertencia */
+  color: #856404;            /* Texto oscuro para contraste */
+  border-color: #ffeeba;
+  box-shadow: 0 2px 4px rgba(255, 193, 7, 0.2); /* Sombra sutil para destacarlo */
+  font-weight: bold;         /* Texto en negrita */
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.resultado {
+  .alert-info {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    border-color: #bee5eb;
+  }
+  h4 {
+    color: #0c5460;
+    font-weight: bold;
+  }
+  strong {
+    color: #0056b3;
+  }
+
+  button {
+    background-color: #343a40;
+    border-color: #343a40;
+    transition: background-color 0.2s, border-color 0.2s;
+  }
+  button:hover {
+    background-color: #1d2124;
+    border-color: #171a1d;
+    transform: translateY(-1px);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+  .contenedor-adivina-bandera {
+    margin: 1rem auto;
+    padding: 1.5rem;
+  }
+  .pantalla-bandera {
+    min-height: 200px;
+    padding: 1rem;
+  }
+  .imagen-bandera {
+    height: 100px;
+  }
+  .seccion-entrada input,
+  .seccion-entrada button {
+    font-size: 1rem;
+    padding: 0.75rem;
+  }
+}

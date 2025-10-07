@@ -39,4 +39,18 @@ export class GamesService {
     await this.supabaseService.saveGameResult('quiz_results', payload);
     return true;
   }
+
+  // --- NUEVO MÉTODO PARA ADIVINA LA BANDERA ---
+  async saveFlagGuesserResult(payload: {
+    user_id?: string | null;
+    username?: string | null;
+    score: number;
+    time_taken_ms: number;
+    flags_guessed: number;
+    total_attempts: number;
+  }) {
+    // La tabla en Supabase será 'adivina_bandera_scores'
+    await this.supabaseService.saveGameResult('adivina_bandera_scores', payload);
+    return true;
+  }
 }

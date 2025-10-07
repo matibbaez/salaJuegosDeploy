@@ -1,3 +1,4 @@
+// src/app/components/resultados/resultados.ts
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SupabaseService } from '../../services/supabase.service';
@@ -13,6 +14,8 @@ export class ResultadosComponent {
   ahorcado = signal<any[]>([]);
   mayorMenor = signal<any[]>([]);
   preguntados = signal<any[]>([]);
+  // --- NUEVO: Resultados de Adivina la Bandera ---
+  adivinaBandera = signal<any[]>([]);
   loading = signal<boolean>(true);
 
   constructor(private supabase: SupabaseService) {}
@@ -38,6 +41,12 @@ export class ResultadosComponent {
       const preguntadosData = await this.supabase.getTableResults('quiz_results', 'correct_answers', true);
       console.log('👉 Preguntados:', preguntadosData);
       this.preguntados.set(preguntadosData);
+
+      // 🗺️ Adivina la Bandera → Ordenar por puntuación descendente
+      const adivinaBanderaData = await this.supabase.getTableResults('adivina_bandera_scores', 'score', false); // false para descendente
+      console.log('👉 Adivina la Bandera:', adivinaBanderaData);
+      this.adivinaBandera.set(adivinaBanderaData);
+
 
     } catch (error) {
       console.error('❌ Error cargando resultados', error);

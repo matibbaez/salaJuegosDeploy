@@ -1,5 +1,6 @@
+<!-- src/app/components/resultados/resultados.html -->
 <div class="container resultados-container">
-  <h2 class="titulo">🏆 Mis resultados</h2>
+  <h2 class="titulo">🏆 Resultados Globales</h2>
 
   <div *ngIf="loading()">Cargando resultados...</div>
 
@@ -68,6 +69,31 @@
             <td>{{ r.topic }}</td>
             <td>{{ r.correct_answers }}</td>
             <td>{{ r.total_questions }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- --- NUEVO: Adivina la Bandera --- -->
+    <div class="tabla-juego">
+      <h3>🗺️ Adivina la Bandera</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Jugador</th>
+            <th>Puntuación</th>
+            <th>Banderas Adivinadas</th>
+            <th>Intentos Totales</th>
+            <th>Tiempo (s)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let r of adivinaBandera()">
+            <td>{{ r.username }}</td>
+            <td>{{ r.score }}</td>
+            <td>{{ r.flags_guessed }}</td>
+            <td>{{ r.total_attempts }}</td>
+            <td>{{ (r.time_taken_ms / 1000) | number:'1.0-1' }}</td>
           </tr>
         </tbody>
       </table>

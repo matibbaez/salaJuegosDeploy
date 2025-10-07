@@ -6,6 +6,7 @@ import { QuienSoyComponent } from './components/quien-soy/quien-soy';
 import { AhorcadoComponent } from './components/ahorcado/ahorcado';
 import { MayorMenorComponent } from './components/mayor-menor/mayor-menor';
 import { PreguntadosComponent } from './components/preguntados/preguntados';
+import { AdivinaBanderaComponent } from './components/adivina-bandera/adivina-bandera';
 import { ResultadosComponent } from './components/resultados/resultados';
 import { ChatComponent } from './components/chat/chat';
 import { JuegosComponent } from './components/juegos/juegos';
@@ -29,6 +30,7 @@ export const routes: Routes = [
   { path: 'ahorcado', component: AhorcadoComponent, canActivate: [authGuard] },
   { path: 'mayor-menor', component: MayorMenorComponent, canActivate: [authGuard] },
   { path: 'preguntados', component: PreguntadosComponent, canActivate: [authGuard] },
+  { path: 'adivina-bandera', component: AdivinaBanderaComponent, canActivate: [authGuard] },
   { path: 'resultados', component: ResultadosComponent, canActivate: [authGuard] },
   { path: 'chat', component: ChatComponent, canActivate: [authGuard] },
 

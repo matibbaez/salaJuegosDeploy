@@ -1,0 +1,47 @@
+<div class="contenedor-adivina-bandera card p-4 shadow-lg">
+  <h2 class="mb-3 text-center">🌎 Adivina la Bandera</h2>
+
+  <!-- Sección para mostrar la bandera -->
+  <div class="pantalla-bandera text-center my-4">
+    <img *ngIf="banderaActual()" [src]="banderaActual()?.urlBandera" alt="Bandera a adivinar" class="img-fluid imagen-bandera">
+    <p class="mt-2 text-muted" *ngIf="!juegoTerminado()">Aciertos: {{ aciertosCorrectos() }} / {{ totalBanderasAdivinar }} | Intentos en esta bandera: {{ intentosBanderaActual() }}</p>
+  </div>
+
+  <!-- Sección de entrada de usuario -->
+  <div class="seccion-entrada my-3" *ngIf="!juegoTerminado()">
+    <input
+      type="text"
+      class="form-control form-control-lg text-center"
+      placeholder="¿Qué país es?"
+      [(ngModel)]="entradaAdivinanza"
+      (keyup.enter)="verificarAdivinanza()"
+      [disabled]="juegoTerminado()"
+    >
+    <div class="d-flex justify-content-between mt-3">
+      <button class="btn btn-primary flex-grow-1 me-2" (click)="verificarAdivinanza()" [disabled]="!entradaAdivinanza || juegoTerminado()">
+        Adivinar
+      </button>
+      <!-- Botón de Saltar Bandera -->
+      <button class="btn btn-warning flex-grow-1 ms-2" (click)="saltarBandera()" [disabled]="juegoTerminado()">
+        Saltar Bandera (-20 Puntos)
+      </button>
+    </div>
+  </div>
+
+  <!-- Mensajes de retroalimentación -->
+  <!-- MODIFICADO: Accede a mensaje.texto y mensaje.clase -->
+  <div *ngIf="mensaje()" class="alert mt-3 text-center" [ngClass]="mensaje()?.clase">
+    {{ mensaje()?.texto }}
+  </div>
+
+  <!-- Pantalla de resultados finales -->
+  <div *ngIf="juegoTerminado()" class="resultado mt-4 text-center">
+    <div class="alert alert-info">
+      <h4>¡Juego Terminado!</h4>
+      <p>Puntuación Final: <strong>{{ puntuacion() }}</strong></p>
+      <p>Banderas Adivinadas: <strong>{{ aciertosCorrectos() }}</strong> de {{ totalBanderasAdivinar }}</p>
+      <p>Tiempo Total: <strong>{{ (tiempoTranscurrido() / 1000).toFixed(2) }} segundos</strong></p>
+    </div>
+    <button class="btn btn-dark mt-3" (click)="reiniciarJuego()">Jugar otra vez</button>
+  </div>
+</div>
