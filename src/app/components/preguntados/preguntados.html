@@ -1,0 +1,56 @@
+<div class="preguntados-wrapper" *ngIf="!finalizado(); else resultadoTpl">
+  <!-- Selección de tema -->
+  <section *ngIf="!temaSeleccionado(); else quizTpl" class="tema-section">
+    <h2 class="titulo">🎯 Elige un tema</h2>
+    <div class="temas-grid">
+      <button *ngFor="let t of temas" class="tema-card" (click)="seleccionarTema(t)">
+        <div class="emoji">
+          {{ t === 'deportes' ? '🏆' : t === 'musica' ? '🎵' : t === 'entretenimiento' ? '🎬' : '📜' }}
+        </div>
+        <span>{{ t | titlecase }}</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- Preguntas -->
+  <ng-template #quizTpl>
+    <section class="pregunta-section" *ngIf="!loading(); else loadingTpl">
+      <div class="header">
+        <span class="tema-label">Tema: {{ temaSeleccionado() | titlecase }}</span>
+        <span class="progreso">Pregunta {{ indice() + 1 }} / {{ preguntas.length }}</span>
+      </div>
+
+      <div class="pregunta-card animate-fade">
+        <h3>{{ preguntas[indice()].question }}</h3>
+        <div class="opciones-grid">
+          <button 
+            *ngFor="let op of preguntas[indice()].options; let i = index"
+            (click)="responder(i)"
+            class="opcion-btn">
+            {{ op }}
+          </button>
+        </div>
+      </div>
+    </section>
+  </ng-template>
+
+  <!-- Loading -->
+  <ng-template #loadingTpl>
+    <div class="loading">
+      <div class="spinner"></div>
+      <p>Cargando preguntas...</p>
+    </div>
+  </ng-template>
+</div>
+
+<!-- Resultado final -->
+<ng-template #resultadoTpl>
+  <div class="resultado animate-fade">
+    <h2>🏁 ¡Juego finalizado!</h2>
+    <p>Respuestas correctas: <strong>{{ correctas() }}</strong> / {{ preguntas.length }}</p>
+    <div class="barra-progreso">
+      <div class="progreso-interno" [style.width.%]="(correctas() / preguntas.length) * 100"></div>
+    </div>
+    <button (click)="reiniciar()" class="btn-reiniciar">Volver al inicio</button>
+  </div>
+</ng-template>

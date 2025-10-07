@@ -1,0 +1,76 @@
+<div class="container resultados-container">
+  <h2 class="titulo">🏆 Mis resultados</h2>
+
+  <div *ngIf="loading()">Cargando resultados...</div>
+
+  <div *ngIf="!loading()">
+    <!-- Ahorcado -->
+    <div class="tabla-juego">
+      <h3>🪓 Ahorcado</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Jugador</th>
+            <th>Palabra</th>
+            <th>¿Ganó?</th>
+            <th>Tiempo (s)</th>
+            <th>Intentos</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let r of ahorcado()">
+            <td>{{ r.username }}</td>
+            <td>{{ r.word }}</td>
+            <td>{{ r.won ? '✅' : '❌' }}</td>
+            <td>{{ (r.time_ms / 1000) | number:'1.0-1' }}</td>
+            <td>{{ r.guesses }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Mayor o Menor -->
+    <div class="tabla-juego">
+      <h3>🔼🔽 Mayor o Menor</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Jugador</th>
+            <th>Aciertos</th>
+            <th>Rondas</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let r of mayorMenor()">
+            <td>{{ r.username }}</td>
+            <td>{{ r.correct_count }}</td>
+            <td>{{ r.total_rounds }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Preguntados -->
+    <div class="tabla-juego">
+      <h3>❓ Preguntados</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Jugador</th>
+            <th>Tema</th>
+            <th>Aciertos</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let r of preguntados()">
+            <td>{{ r.username }}</td>
+            <td>{{ r.topic }}</td>
+            <td>{{ r.correct_answers }}</td>
+            <td>{{ r.total_questions }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

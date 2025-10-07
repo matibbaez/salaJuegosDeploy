@@ -1,6 +1,89 @@
-<div class="text-center home-container">
-  <img src="matiPlay2.png" alt="Icono Sala de Juegos" class="home-icon mb-4">
+<div class="text-center home-container mb-5">
+  <img src="matiPlay.png" alt="Icono Sala de Juegos" class="home-icon mb-4" />
+  <h1 class="display-4 fw-bold text-gradient">Bienvenido a la Sala de Juegos</h1>
+  <p class="lead text-light-subtle">Pon a prueba tu memoria, reflejos y conocimientos.</p>
+</div>
 
-  <h1 class="display-4 fw-bold">Bienvenido a la Sala de Juegos</h1>
-  <p class="lead">Pon a prueba tu memoria, reflejos y conocimientos.</p>
+<div class="juegos-container container">
+  <h2 class="text-center fw-bold mb-2 text-gradient">Juegos Disponibles</h2>
+  <p class="text-center text-muted mb-5">Elige un juego y empieza a divertirte</p>
+
+  <div class="row g-4">
+
+    <!-- Juego 1: Ahorcado -->
+    <div class="col-md-6 col-lg-4">
+      <div class="card game-card shadow-lg h-100">
+        <div class="card-img-wrapper">
+          <img src="ahorcadoBanner.png" class="card-img-top" alt="Ahorcado" />
+        </div>
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title fw-bold">Ahorcado</h5>
+          <p class="card-text text-muted flex-grow-1">
+            Adivina la palabra secreta antes de que se complete el dibujo. ¿Podrás salvarte?
+          </p>
+
+          <a *ngIf="isLoggedIn; else loginMsg" routerLink="/ahorcado" class="btn btn-gradient mt-auto w-100">
+            Jugar
+          </a>
+
+          <ng-template #loginMsg>
+            <button class="btn btn-secondary mt-auto w-100 disabled">
+              Inicia sesión para jugar
+            </button>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+
+    <!-- Juego 2: Mayor o Menor -->
+    <div class="col-md-6 col-lg-4">
+      <div class="card game-card shadow-lg h-100">
+        <div class="card-img-wrapper">
+          <img src="mayorMenor.png" class="card-img-top" alt="Mayor o Menor" />
+        </div>
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title fw-bold">Mayor o Menor</h5>
+          <p class="card-text text-muted flex-grow-1">
+            Adivina si la siguiente carta será mayor o menor. ¡Parece fácil, pero no lo es!
+          </p>
+
+          <a *ngIf="isLoggedIn; else loginMsg2" routerLink="/mayor-menor" class="btn btn-gradient mt-auto w-100">
+            Jugar
+          </a>
+
+          <ng-template #loginMsg2>
+            <button class="btn btn-secondary mt-auto w-100 disabled">
+              Inicia sesión para jugar
+            </button>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+
+    <!-- Juego 3: Preguntados -->
+    <div class="col-md-6 col-lg-4">
+      <div class="card game-card shadow-lg h-100">
+        <div class="card-img-wrapper">
+          <img src="preguntadosBanner.png" class="card-img-top" alt="Preguntados" />
+        </div>
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title fw-bold">Preguntados</h5>
+          <p class="card-text text-muted flex-grow-1">
+            Responde preguntas y mide tus conocimientos.
+          </p>
+
+          <a *ngIf="isLoggedIn; else loginMsg3" routerLink="/preguntados" class="btn btn-gradient mt-auto w-100">
+            Jugar
+          </a>
+
+          <ng-template #loginMsg3>
+            <button class="btn btn-secondary mt-auto w-100 disabled">
+              Inicia sesión para jugar
+            </button>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </div>

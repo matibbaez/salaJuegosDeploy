@@ -48,6 +48,16 @@ export class SupabaseService {
     return data;
   }
 
+  async getTableResults(table: string, orderBy: string, ascending: boolean = false) {
+    const { data, error } = await this.supabase
+      .from(table)
+      .select('*')
+      .order(orderBy, { ascending });
+
+    if (error) throw error;
+    return data;
+  }
+
   // ========= CHAT =========
   async sendMessage(userId: string, message: string) {
     const { data, error } = await this.supabase.from('chat').insert([

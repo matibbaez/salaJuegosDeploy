@@ -1,20 +1,140 @@
+body {
+  background: radial-gradient(circle at top, #1a1a2e 0%, #0f0f1a 100%);
+  color: #f8f9fa;
+  font-family: "Poppins", sans-serif;
+}
+
+/* --- HOME SECTION --- */
 .home-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      margin-top: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 80px;
+  color: #fff;
+}
+
+/* 🔹 Fuerza el banner a ocupar toda la pantalla */
+.banner-wrapper {
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  width: 100vw;
+  overflow: hidden;
+  border-radius: 0;
+}
+
+.banner-wrapper img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  border-radius: 0;
+}
+
+.banner-img {
+  max-width: 100%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.banner-img:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.6);
+}
+
+.text-gradient {
+  background: linear-gradient(90deg, #00c6ff, #0072ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .home-icon {
-    width: 120px;
-    height: 120px;
-    object-fit: contain;
-    transition: transform 0.3s ease;
-    cursor: pointer;
+  width: 130px;
+  height: 130px;
+  object-fit: contain;
+  transition: transform 0.4s ease, filter 0.3s ease;
+  cursor: pointer;
+  filter: drop-shadow(0 0 15px rgba(0, 114, 255, 0.4));
 }
 
-/* Animación al pasar el mouse */
 .home-icon:hover {
-    transform: scale(1.2) rotate(-10deg);
+  transform: scale(1.2) rotate(-10deg);
+  filter: drop-shadow(0 0 20px rgba(0, 204, 255, 0.8));
+}
+
+/* --- GAME CARDS --- */
+.game-card {
+  border: none;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #1b1b2f;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.game-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 25px rgba(0, 114, 255, 0.3);
+}
+
+/* Imagen superior */
+.card-img-wrapper {
+  overflow: hidden;
+  height: 200px;
+}
+
+.card-img-top {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.game-card:hover .card-img-top {
+  transform: scale(1.1);
+}
+
+/* Botones */
+.btn-gradient {
+  background: linear-gradient(90deg, #00c6ff, #0072ff);
+  border: none;
+  color: #fff;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border-radius: 10px;
+}
+
+.btn-gradient:hover {
+  background: linear-gradient(90deg, #0072ff, #00c6ff);
+  box-shadow: 0 0 15px rgba(0, 204, 255, 0.5);
+  transform: scale(1.05);
+}
+
+/* Ajustes del texto */
+.card-title {
+  color: #ffffff;
+  font-size: 1.25rem;
+}
+
+.text-light-subtle {
+  color: #b5b5b5;
+}
+
+/* Animación sutil de aparición */
+.game-card {
+  opacity: 0;
+  animation: fadeInUp 0.7s ease forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

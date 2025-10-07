@@ -28,4 +28,15 @@ export class GamesService {
     await this.supabaseService.saveGameResult('higher_lower_results', payload);
     return true;
   }
+
+  async saveQuizResult(payload: {
+    user_id?: string | null;
+    username?: string | null;
+    topic: string | null;
+    total_questions: number;
+    correct_answers: number;
+  }) {
+    await this.supabaseService.saveGameResult('quiz_results', payload);
+    return true;
+  }
 }
