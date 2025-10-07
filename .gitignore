@@ -6,9 +6,6 @@
 /out-tsc/
 /.angular/cache/
 
-# Environment de desarrollo (secretos locales)
-src/environments/environment.ts
-
 # Editor/IDE
 .vscode/
 .idea/
