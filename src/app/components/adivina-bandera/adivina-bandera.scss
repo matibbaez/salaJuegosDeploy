@@ -1,121 +1,142 @@
+/* === CONTENEDOR PRINCIPAL === */
 .contenedor-adivina-bandera {
   max-width: 600px;
   margin: 2rem auto;
-  background-color: #ffffff;
-  border-radius: 8px;
+  padding: 2rem;
+  border-radius: 16px;
+  background: radial-gradient(circle at top, #1a1a2e, #0f0f1a);
+  box-shadow: 0 0 20px #000;
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
   animation: fadeIn 0.8s ease-out;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
+/* === ANIMACIONES === */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-20px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* === TÍTULO === */
 h2 {
-  color: #007bff;
-  font-weight: bold;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+  color: #ffcc00;
+  font-weight: 700;
+  text-shadow: 0 0 10px #ffcc00aa;
+  text-align: center;
+  margin-bottom: 1.5rem;
 }
 
+/* === PANTALLA DE BANDERA === */
 .pantalla-bandera {
-  background-color: #f8f9fa;
-  border: 1px solid #dee2e6;
-  border-radius: 5px;
+  background: linear-gradient(145deg, #202040, #101020);
+  border: 2px solid #333;
+  border-radius: 12px;
   padding: 1.5rem;
-  min-height: 250px; /* Asegura un tamaño mínimo */
+  min-height: 250px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  transition: all 0.3s ease-in-out;
+  justify-content: center;
+  transition: 0.3s ease;
 
   .imagen-bandera {
     max-width: 90%;
-    height: 150px; /* Altura fija para la imagen */
-    object-fit: contain; /* Asegura que la imagen se ajuste sin distorsionarse */
-    border: 1px solid #ccc; /* Borde sutil para la bandera */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-    border-radius: 4px;
-    transition: transform 0.3s ease-in-out;
+    height: 150px;
+    object-fit: contain;
+    border: 2px solid #00ffff44;
+    box-shadow: 0 0 10px #00ffff33;
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px #00ffff77;
+    }
   }
-  .imagen-bandera:hover {
-    transform: scale(1.02);
+
+  p {
+    margin-top: 1rem;
+    opacity: 0.85;
+    font-size: 1rem;
   }
 }
 
+/* === SECCIÓN DE ENTRADA === */
 .seccion-entrada {
+  margin-top: 1.5rem;
+
   input {
-    border-color: #007bff;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+    background: #101025;
+    border: 2px solid #00ffff66;
+    color: #fff;
+    text-align: center;
+    border-radius: 10px;
     font-size: 1.2rem;
-  }
-  input:focus {
-    border-color: #0056b3;
-    box-shadow: 0 0 8px rgba(0, 123, 255, 0.4);
+    padding: 0.8rem;
+    transition: 0.3s;
+
+    &:focus {
+      outline: none;
+      border-color: #00ffff;
+      box-shadow: 0 0 10px #00ffff66;
+    }
+
+    &::placeholder {
+      color: #aaa;
+    }
   }
 
-  .d-flex { /* Estilos para el contenedor de botones */
+  .d-flex {
+    margin-top: 1rem;
+
     button {
-      font-weight: bold;
-      transition: background-color 0.2s, border-color 0.2s, transform 0.2s;
+      flex: 1;
+      font-weight: 600;
+      border-radius: 10px;
+      border: none;
+      color: #fff;
+      padding: 0.8rem 1rem;
+      transition: 0.3s ease;
+      cursor: pointer;
+
+      &:disabled {
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
     }
-    .btn-primary { /* Botón Adivinar */
-      background-color: #007bff;
-      border-color: #007bff;
+
+    .btn-primary {
+      background: linear-gradient(145deg, #2b2b5e, #1c1c3e);
+
+      &:hover:not(:disabled) {
+        border-color: #00ffff;
+        transform: translateY(-2px);
+        box-shadow: 0 0 15px #00ffff77;
+      }
     }
-    .btn-primary:hover:not(:disabled) {
-      background-color: #0056b3;
-      border-color: #0056b3;
-      transform: translateY(-1px);
-    }
-    .btn-warning { /* Botón Saltar Bandera */
-      background-color: #ffc107;
-      border-color: #ffc107;
-      color: #343a40; /* Texto oscuro para contraste */
-    }
-    .btn-warning:hover:not(:disabled) {
-      background-color: #e0a800;
-      border-color: #e0a800;
-      transform: translateY(-1px);
-    }
-    button:disabled {
-      cursor: not-allowed;
-      opacity: 0.6;
+
+    .btn-warning {
+      background: linear-gradient(145deg, #5e512b, #3e2f1c);
+      color: #ffcc00;
+
+      &:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 0 15px #ffcc0077;
+      }
     }
   }
 }
 
-/* ... (código CSS anterior) ... */
-
+/* === MENSAJES DE FEEDBACK === */
 .alert {
   font-size: 1.1rem;
-  font-weight: 500;
-  border-radius: 5px;
+  font-weight: 600;
+  border-radius: 10px;
+  margin-top: 1rem;
+  padding: 1rem 1.5rem;
+  text-align: center;
   animation: slideIn 0.4s ease-out;
-  margin-top: 1rem; // Ajuste para el espacio
-  padding: 1rem 1.5rem; // Ajuste de padding
-}
-
-.alert-success {
-  background-color: #d4edda;
-  color: #155724;
-  border-color: #c3e6cb;
-}
-
-.alert-danger {
-  background-color: #f8d7da;
-  color: #721c24;
-  border-color: #f5c6cb;
-}
-
-/* --- NUEVO ESTILO PARA MENSAJES DE SALTO/LÍMITE EXCEDIDO --- */
-.alert-skipped {
-  background-color: #fff3cd; /* Un amarillo suave, como el botón de advertencia */
-  color: #856404;            /* Texto oscuro para contraste */
-  border-color: #ffeeba;
-  box-shadow: 0 2px 4px rgba(255, 193, 7, 0.2); /* Sombra sutil para destacarlo */
-  font-weight: bold;         /* Texto en negrita */
+  box-shadow: 0 0 10px #0006;
 }
 
 @keyframes slideIn {
@@ -123,48 +144,89 @@ h2 {
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* Estados */
+.alert-success {
+  background: #1e3a2e;
+  color: #00ff99;
+  border: 1px solid #00ff99;
+  box-shadow: 0 0 10px #00ff9988;
+}
+
+.alert-danger {
+  background: #3a1e1e;
+  color: #ff5555;
+  border: 1px solid #ff5555;
+  box-shadow: 0 0 10px #ff555588;
+}
+
+.alert-skipped {
+  background: #4a3a1e;
+  color: #ffcc00;
+  border: 1px solid #ffcc00;
+  box-shadow: 0 0 10px #ffcc0077;
+}
+
+/* === RESULTADO FINAL === */
 .resultado {
+  margin-top: 2rem;
+  background: #202040;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 0 20px #000;
+  text-align: center;
+
   .alert-info {
-    background-color: #d1ecf1;
-    color: #0c5460;
-    border-color: #bee5eb;
+    background: linear-gradient(145deg, #1a1a3a, #0f0f25);
+    color: #00ffff;
+    border: 1px solid #00ffff88;
+    box-shadow: 0 0 15px #00ffff44;
+    border-radius: 12px;
+    padding: 1.5rem;
   }
+
   h4 {
-    color: #0c5460;
+    color: #ffcc00;
     font-weight: bold;
+    margin-bottom: 1rem;
   }
+
   strong {
-    color: #0056b3;
+    color: #00ffff;
   }
 
   button {
-    background-color: #343a40;
-    border-color: #343a40;
-    transition: background-color 0.2s, border-color 0.2s;
-  }
-  button:hover {
-    background-color: #1d2124;
-    border-color: #171a1d;
-    transform: translateY(-1px);
+    background: linear-gradient(145deg, #2b2b5e, #1c1c3e);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 0.8rem 1.5rem;
+    margin-top: 1.5rem;
+    transition: 0.3s;
+
+    &:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px #00ffff77;
+    }
   }
 }
 
-/* Responsive adjustments */
+/* === RESPONSIVE === */
 @media (max-width: 576px) {
   .contenedor-adivina-bandera {
-    margin: 1rem auto;
+    margin: 1rem;
     padding: 1.5rem;
   }
+
   .pantalla-bandera {
     min-height: 200px;
-    padding: 1rem;
+
+    .imagen-bandera {
+      height: 100px;
+    }
   }
-  .imagen-bandera {
-    height: 100px;
-  }
-  .seccion-entrada input,
-  .seccion-entrada button {
+
+  input, button {
     font-size: 1rem;
-    padding: 0.75rem;
+    padding: 0.7rem;
   }
 }

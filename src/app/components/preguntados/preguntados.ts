@@ -1,23 +1,28 @@
-import { Component, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, signal, OnInit } from '@angular/core';
+import { CommonModule, NgIf, NgClass } from '@angular/common'; // Agrega NgClass para estilos condicionales
 import { GamesService } from '../../services/games.service';
 import { AuthService } from '../../services/auth.service';
+import { QuizService, Question } from '../../services/quiz.service';
+import { HttpClientModule } from '@angular/common/http';
 
-type Question = {
+// Define una interfaz para el historial de cada pregunta
+interface QuestionHistory {
   question: string;
   options: string[];
   correctIndex: number;
-};
+  userAnswerIndex: number; // Índice de la opción que el usuario seleccionó
+  isCorrect: boolean;
+}
 
 @Component({
   selector: 'app-preguntados',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, HttpClientModule, NgIf, NgClass], // Asegúrate de incluir NgClass
   templateUrl: './preguntados.html',
   styleUrls: ['./preguntados.scss']
 })
-export class PreguntadosComponent {
-  temas = ['deportes', 'musica', 'entretenimiento', 'historia'];
+export class PreguntadosComponent implements OnInit {
+  temas = signal<string[]>([]);
   temaSeleccionado = signal<string | null>(null);
   preguntas: Question[] = [];
   indice = signal(0);
@@ -25,7 +30,32 @@ export class PreguntadosComponent {
   finalizado = signal(false);
   loading = signal(false);
 
-  constructor(private games: GamesService, private auth: AuthService) {}
+  // Nueva propiedad para almacenar el historial de preguntas y respuestas
+  historialRespuestas: QuestionHistory[] = [];
+  
+  // Propiedad para controlar el feedback visual en el template
+  feedbackClaseRespuesta: { [key: number]: string } = {};
+
+  constructor(
+    private games: GamesService,
+    private auth: AuthService,
+    private quizService: QuizService
+  ) {}
+
+  ngOnInit(): void {
+    this.cargarTemas();
+  }
+
+  async cargarTemas() {
+    this.quizService.getQuizTopics().subscribe(
+      (topics) => {
+        this.temas.set(topics);
+      },
+      (error) => {
+        console.error('Error al cargar los temas:', error);
+      }
+    );
+  }
 
   seleccionarTema(tema: string) {
     this.temaSeleccionado.set(tema);
@@ -34,49 +64,65 @@ export class PreguntadosComponent {
 
   async cargarPreguntas(tema: string) {
     this.loading.set(true);
-    // 🔹 Podés reemplazar esto luego por una carga desde Supabase si querés hacerlo dinámico
-    const banco: Record<string, Question[]> = {
-      deportes: [
-        { question: '¿Cuántos jugadores hay en un equipo de fútbol?', options: ['9', '10', '11', '12'], correctIndex: 2 },
-        { question: '¿Qué deporte practica Lionel Messi?', options: ['Básquet', 'Tenis', 'Fútbol', 'Rugby'], correctIndex: 2 },
-      ],
-      musica: [
-        { question: '¿Quién es el "Rey del Pop"?', options: ['Elvis Presley', 'Michael Jackson', 'Prince', 'Freddie Mercury'], correctIndex: 1 },
-        { question: '¿Qué instrumento toca Slash?', options: ['Batería', 'Bajo', 'Guitarra', 'Piano'], correctIndex: 2 },
-      ],
-      entretenimiento: [
-        { question: '¿Qué saga tiene a Darth Vader?', options: ['Harry Potter', 'Star Wars', 'Marvel', 'Matrix'], correctIndex: 1 },
-        { question: '¿Quién es el protagonista de "Iron Man"?', options: ['Chris Evans', 'Robert Downey Jr.', 'Tom Holland', 'Mark Ruffalo'], correctIndex: 1 },
-      ],
-      historia: [
-        { question: '¿En qué año fue la Revolución Francesa?', options: ['1789', '1848', '1492', '1914'], correctIndex: 0 },
-        { question: '¿Quién fue el primer presidente de EE.UU.?', options: ['Abraham Lincoln', 'George Washington', 'Thomas Jefferson', 'John Adams'], correctIndex: 1 },
-      ],
-    };
-
-    this.preguntas = banco[tema];
-    this.loading.set(false);
+    // Limpiar historial al cargar nuevas preguntas
+    this.historialRespuestas = []; 
+    this.quizService.getQuestionsByTopic(tema).subscribe(
+      (questions) => {
+        this.preguntas = questions;
+        this.loading.set(false);
+      },
+      (error) => {
+        console.error('Error al cargar las preguntas:', error);
+        this.loading.set(false);
+      }
+    );
   }
 
   responder(index: number) {
     if (this.finalizado()) return;
-    const actual = this.preguntas[this.indice()];
-    if (index === actual.correctIndex) this.correctas.update(c => c + 1);
 
-    if (this.indice() + 1 >= this.preguntas.length) {
-      this.finalizado.set(true);
-      this.guardarResultado();
-    } else {
-      this.indice.update(i => i + 1);
+    const actual = this.preguntas[this.indice()];
+    const esCorrecta = (index === actual.correctIndex);
+
+    if (esCorrecta) {
+      this.correctas.update(c => c + 1);
     }
+
+    // Almacenar en el historial antes de pasar a la siguiente pregunta
+    this.historialRespuestas.push({
+      question: actual.question,
+      options: actual.options,
+      correctIndex: actual.correctIndex,
+      userAnswerIndex: index,
+      isCorrect: esCorrecta
+    });
+
+    // 🔹 Opcional: Mostrar feedback visual inmediato en la UI antes de avanzar
+    this.feedbackClaseRespuesta[index] = esCorrecta ? 'correct-answer-feedback' : 'wrong-answer-feedback';
+    if (!esCorrecta) {
+        this.feedbackClaseRespuesta[actual.correctIndex] = 'correct-answer-highlight'; // Resaltar la correcta si falló
+    }
+
+
+    setTimeout(() => { // Pequeño retraso para que el usuario vea el feedback
+      this.feedbackClaseRespuesta = {}; // Limpiar feedback
+
+      if (this.indice() + 1 >= this.preguntas.length) {
+        this.finalizado.set(true);
+        this.guardarResultado();
+      } else {
+        this.indice.update(i => i + 1);
+      }
+    }, 800); // 800ms de pausa
   }
 
   async guardarResultado() {
-    const user = this.auth.getCurrentUser();
+    const user = await this.auth.getCurrentUser();
+
     try {
       await this.games.saveQuizResult({
         user_id: user?.id ?? null,
-        username: (user as any)?.email ?? null,
+        username: user?.email ?? null,
         topic: this.temaSeleccionado(),
         total_questions: this.preguntas.length,
         correct_answers: this.correctas(),
@@ -91,5 +137,8 @@ export class PreguntadosComponent {
     this.indice.set(0);
     this.correctas.set(0);
     this.finalizado.set(false);
+    this.historialRespuestas = []; // Limpiar historial al reiniciar
+    this.feedbackClaseRespuesta = {}; // Limpiar feedback
+    this.cargarTemas();
   }
 }
