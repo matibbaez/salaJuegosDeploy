@@ -12,7 +12,7 @@
       <div class="msg-bubble p-2 rounded shadow-sm">
         <div class="meta small fw-bold mb-1">
           {{ m.username || 'Invitado' }}
-          <span class="text-muted"> • {{ m.created_at | date:'shortTime' }}</span>
+          <span class="text-muted"> • {{ m.created_at | timeAgo }} • {{ m.created_at | date:'shortTime' }}</span>
         </div>
         <div class="msg-text">{{ m.message }}</div>
       </div>
