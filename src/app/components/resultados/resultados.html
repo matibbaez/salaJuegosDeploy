@@ -5,8 +5,20 @@
   <div *ngIf="loading()">Cargando resultados...</div>
 
   <div *ngIf="!loading()">
+    <!-- Selector de juegos -->
+    <div class="filtro-juegos">
+      <label for="juego-selector">Filtrar por juego:</label>
+      <select id="juego-selector" [(ngModel)]="juegoSeleccionado" (change)="filtrarResultados()">
+        <option value="todos">Todos los Juegos</option>
+        <option value="ahorcado">Ahorcado</option>
+        <option value="mayorMenor">Mayor o Menor</option>
+        <option value="preguntados">Preguntados</option>
+        <option value="adivinaBandera">Adivina la Bandera</option>
+      </select>
+    </div>
+
     <!-- Ahorcado -->
-    <div class="tabla-juego">
+    <div class="tabla-juego" *ngIf="mostrarJuego('ahorcado')">
       <h3>🪓 Ahorcado</h3>
       <table>
         <thead>
@@ -31,7 +43,7 @@
     </div>
 
     <!-- Mayor o Menor -->
-    <div class="tabla-juego">
+    <div class="tabla-juego" *ngIf="mostrarJuego('mayorMenor')">
       <h3>🔼🔽 Mayor o Menor</h3>
       <table>
         <thead>
@@ -52,7 +64,7 @@
     </div>
 
     <!-- Preguntados -->
-    <div class="tabla-juego">
+    <div class="tabla-juego" *ngIf="mostrarJuego('preguntados')">
       <h3>❓ Preguntados</h3>
       <table>
         <thead>
@@ -75,7 +87,7 @@
     </div>
 
     <!-- --- NUEVO: Adivina la Bandera --- -->
-    <div class="tabla-juego">
+    <div class="tabla-juego" *ngIf="mostrarJuego('adivinaBandera')">
       <h3>🗺️ Adivina la Bandera</h3>
       <table>
         <thead>
