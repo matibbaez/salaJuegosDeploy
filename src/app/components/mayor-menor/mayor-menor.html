@@ -1,46 +1,57 @@
-<div class="mayor-menor-container card shadow-lg p-4">
+<div class="game-wrapper-card">
 
-  <!-- Título -->
-  <div class="text-center mb-4">
-    <h2 class="fw-bold text-gradient">Mayor o Menor</h2>
-    <p class="text-muted">Adivina si la siguiente carta será mayor o menor</p>
-  </div>
-
-  <!-- Cartas y botones -->
-  <div class="d-flex flex-column flex-md-row align-items-center justify-content-center gap-4 my-4">
-
-    <!-- Carta actual -->
-    <div class="playing-card shadow">
-      <div class="value">{{ current?.label }}</div>
-      <div class="suit">{{ current?.suit }}</div>
+  <div class="game-container-mm">
+    <div class="hud-scoreboard">
+      <div class="stat-block">
+        <div class="label">Aciertos</div>
+        <div class="value success">{{ correct() }}</div>
+      </div>
+      <div class="game-title">
+        <h2 class="gradient-text">Mayor o Menor</h2>
+      </div>
+      <div class="stat-block">
+        <div class="label">Rondas</div>
+        <div class="value">{{ rounds() }} / {{ maxRounds }}</div>
+      </div>
     </div>
-
-    <!-- Botones -->
-    <div class="d-flex flex-column gap-3">
-      <button class="btn btn-lg btn-success px-4" (click)="guess(true)" [disabled]="finished()">
-        🔼 Mayor
-      </button>
-      <button class="btn btn-lg btn-danger px-4" (click)="guess(false)" [disabled]="finished()">
-        🔽 Menor
+  
+    <div class="card-arena">
+      <div class="card-slot">
+        <div class="slot-label">Carta Actual</div>
+        <div class="playing-card" [class.flip-in]="animateCard()">
+          <div class="value">{{ current?.label }}</div>
+          <div class="suit">{{ current?.suit }}</div>
+        </div>
+      </div>
+      <div class="card-slot">
+        <div class="slot-label">Siguiente Carta</div>
+        <div class="card-deck">
+          <div class="card-back"></div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="action-area" *ngIf="!finished()">
+      <p>¿La siguiente carta será...?</p>
+      <div class="button-group">
+        <button class="btn btn-action btn-mayor" (click)="guess(true)">
+          <i class="bi bi-arrow-up-circle-fill"></i>
+          <span>MAYOR</span>
+        </button>
+        <button class="btn btn-action btn-menor" (click)="guess(false)">
+          <i class="bi bi-arrow-down-circle-fill"></i>
+          <span>MENOR</span>
+        </button>
+      </div>
+    </div>
+  
+    <div *ngIf="finished()" class="game-over">
+      <h4>¡Fin del Juego!</h4>
+      <p class="score-final">Acertaste <strong>{{ correct() }}</strong> de <strong>{{ maxRounds }}</strong> rondas.</p>
+      <button class="btn btn-secondary" (click)="restart()">
+        <i class="bi bi-arrow-clockwise"></i> Jugar otra vez
       </button>
     </div>
-  </div>
-
-  <!-- Marcador -->
-  <div class="scoreboard text-center my-3">
-    <p class="mb-1 fs-5">
-      Acertadas: <span class="fw-bold text-success">{{ correct() }}</span>
-    </p>
-    <p class="mb-0 fs-5">
-      Rondas: <span class="fw-bold">{{ rounds() }} / {{ maxRounds }}</span>
-    </p>
-  </div>
-
-  <!-- Final del juego -->
-  <div *ngIf="finished()" class="text-center mt-4">
-    <h4 class="text-primary">¡Fin del juego!</h4>
-    <p class="text-white">Resultado guardado con éxito</p>
-    <button class="btn btn-outline-primary mt-2" (click)="restart()">Jugar otra vez</button>
   </div>
 
 </div>

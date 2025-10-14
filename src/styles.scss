@@ -1,6 +1,6 @@
 @import "bootstrap/scss/functions";
 @import "bootstrap/scss/variables";
-@import "bootstrap/scss/maps"; // <-- 🚨 ESTA ES LA LÍNEA QUE FALTABA Y SOLUCIONA EL ERROR
+@import "bootstrap/scss/maps"; 
 @import "bootstrap/scss/mixins";
 
 // 2. Partes que SÍ estamos usando en el proyecto (lo esencial)
@@ -76,7 +76,6 @@ body {
 
 /* --- 💡 TARJETAS DE JUEGO (LA ESTRELLA DEL DISEÑO) --- */
 .game-card {
-  /* 🔥 MEJORADO: Aplicamos el efecto cristal directamente */
   background: var(--color-cristal);
   backdrop-filter: blur(8px);
   border: 1px solid var(--color-borde-cristal);
@@ -138,7 +137,6 @@ body {
 
 /* --- 💬 BOTÓN FLOTANTE DE CHAT (Integrado con la paleta) --- */
 .chat-float-btn {
-  /* 🔥 MEJORADO: Usando los colores de acento para el gradiente */
   background: linear-gradient(45deg, #25d366, #128c7e); /* Mantenemos el verde de WhatsApp por reconocimiento */
   /* Si prefieres integrarlo totalmente:
   background: linear-gradient(45deg, var(--color-acento), #574ae2);
@@ -173,7 +171,7 @@ h1, h2, h3, h4, h5 {
   color: var(--color-texto-secundario) !important;
 }
 
-/* 🔥 MEJORADO: Usando las variables de acento para el gradiente */
+
 .gradient-text {
   background: linear-gradient(90deg, var(--color-acento), var(--color-acento-secundario));
   -webkit-background-clip: text;

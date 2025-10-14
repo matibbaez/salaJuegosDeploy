@@ -1,7 +1,7 @@
-<div class="d-flex justify-content-center">
-  <div class="card shadow-lg p-4 rounded-4" style="max-width: 420px; width: 100%;">
+<div class="auth-container">
+  <div class="auth-card">
     <div class="text-center mb-4">
-      <img src="matiPlay2.png" alt="Logo" width="60" class="mb-2">
+      <img src="matiPlay.png" alt="Logo" width="60" class="mb-2">
       <h3 class="fw-bold gradient-text">Registro</h3>
       <p class="text-muted">Crea tu cuenta en segundos</p>
     </div>
@@ -10,55 +10,66 @@
 
     <form (ngSubmit)="register()" #registroForm="ngForm" novalidate>
       
-      <!-- Nombre -->
       <div class="mb-3 input-group">
-        <span class="input-group-text bg-light"><i class="bi bi-person"></i></span>
-        <input [(ngModel)]="firstName" name="firstName" type="text" class="form-control" placeholder="Nombre" required #firstNameInput="ngModel">
+        <span class="input-group-text"><i class="bi bi-person"></i></span>
+        <input [(ngModel)]="firstName" name="firstName" type="text" class="form-control" placeholder="Nombre" 
+              required 
+              pattern="^(?!\s*$)[a-zA-Z\s'-]+$" 
+              #firstNameInput="ngModel">
       </div>
-      <div *ngIf="firstNameInput.invalid && firstNameInput.touched" class="text-danger small ms-1">
-        El nombre es obligatorio
+      <div *ngIf="firstNameInput.invalid && firstNameInput.touched" class="text-danger small ms-1 mb-2">
+        <div *ngIf="firstNameInput.errors?.['required']">El nombre es obligatorio.</div>
+        <div *ngIf="firstNameInput.errors?.['pattern']">El nombre no es válido (solo letras y no puede ser solo espacios).</div>
       </div>
 
-      <!-- Apellido -->
       <div class="mb-3 input-group">
-        <span class="input-group-text bg-light"><i class="bi bi-person-badge"></i></span>
-        <input [(ngModel)]="lastName" name="lastName" type="text" class="form-control" placeholder="Apellido" required #lastNameInput="ngModel">
+        <span class="input-group-text"><i class="bi bi-person-badge"></i></span>
+        <input [(ngModel)]="lastName" name="lastName" type="text" class="form-control" placeholder="Apellido" 
+              required 
+              pattern="^(?!\s*$)[a-zA-Z\s'-]+$" 
+              #lastNameInput="ngModel">
       </div>
-      <div *ngIf="lastNameInput.invalid && lastNameInput.touched" class="text-danger small ms-1">
-        El apellido es obligatorio
+      <div *ngIf="lastNameInput.invalid && lastNameInput.touched" class="text-danger small ms-1 mb-2">
+        <div *ngIf="lastNameInput.errors?.['required']">El apellido es obligatorio.</div>
+        <div *ngIf="lastNameInput.errors?.['pattern']">El apellido no es válido (solo letras y no puede ser solo espacios).</div>
       </div>
 
-      <!-- Edad -->
       <div class="mb-3 input-group">
-        <span class="input-group-text bg-light"><i class="bi bi-calendar"></i></span>
-        <input [(ngModel)]="age" name="age" type="number" class="form-control" placeholder="Edad" required #ageInput="ngModel">
+        <span class="input-group-text"><i class="bi bi-calendar"></i></span>
+        <input [(ngModel)]="age" name="age" type="number" class="form-control" placeholder="Edad" 
+               required 
+               min="18" 
+               max="99" 
+               #ageInput="ngModel">
       </div>
-      <div *ngIf="ageInput.invalid && ageInput.touched" class="text-danger small ms-1">
-        Ingresa una edad válida
-      </div>
-
-      <!-- Email -->
-      <div class="mb-3 input-group">
-        <span class="input-group-text bg-light"><i class="bi bi-envelope"></i></span>
-        <input [(ngModel)]="email" name="email" type="email" class="form-control" placeholder="Correo electrónico" required>
+      <div *ngIf="ageInput.invalid && ageInput.touched" class="text-danger small ms-1 mb-2">
+        <div *ngIf="ageInput.errors?.['required']">La edad es obligatoria.</div>
+        <div *ngIf="ageInput.errors?.['min'] || ageInput.errors?.['max']">Debes tener entre 18 y 99 años.</div>
       </div>
 
-      <!-- Contraseña -->
       <div class="mb-3 input-group">
-        <span class="input-group-text bg-light"><i class="bi bi-lock"></i></span>
-        <input [(ngModel)]="password" name="password" type="password" 
-               class="form-control" placeholder="Contraseña" 
-               required minlength="6" 
-               pattern="^(?=.*[A-Z]).+$"
+        <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+        <input [(ngModel)]="email" name="email" type="email" class="form-control" placeholder="Correo electrónico" required email #emailInput="ngModel">
+      </div>
+      <div *ngIf="emailInput.invalid && emailInput.touched" class="text-danger small ms-1 mb-2">
+        <div *ngIf="emailInput.errors?.['required']">El email es obligatorio.</div>
+        <div *ngIf="emailInput.errors?.['email']">El formato del email no es válido.</div>
+      </div>
+
+      <div class="mb-3 input-group">
+        <span class="input-group-text"><i class="bi bi-lock"></i></span>
+        <input [(ngModel)]="password" name="password" type="password" class="form-control" placeholder="Contraseña" 
+               required 
+               minlength="6"
+               pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$"
                #passInput="ngModel">
       </div>
       <div *ngIf="passInput.invalid && passInput.touched" class="text-danger small ms-1">
-        <div *ngIf="passInput.errors?.['required']">La contraseña es obligatoria</div>
-        <div *ngIf="passInput.errors?.['minlength']">Debe tener al menos 6 caracteres</div>
-        <div *ngIf="passInput.errors?.['pattern']">Debe incluir al menos una letra mayúscula</div>
+        <div *ngIf="passInput.errors?.['required']">La contraseña es obligatoria.</div>
+        <div *ngIf="passInput.errors?.['minlength']">Debe tener al menos 6 caracteres.</div>
+        <div *ngIf="passInput.errors?.['pattern']">Debe incluir una mayúscula, una minúscula y un número.</div>
       </div>
 
-      <!-- Botón -->
       <button class="btn btn-primary w-100 mt-3 rounded-3" type="submit" [disabled]="registroForm.invalid">
         <i class="bi bi-person-plus me-1"></i> Registrarse
       </button>

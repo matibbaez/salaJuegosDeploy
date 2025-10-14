@@ -9,6 +9,7 @@ import { AuthService } from '../../services/auth.service';
   standalone: true,
   imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './registro.html',
+  styleUrls: ['../../styles/auth-forms.scss']
 })
 export class RegistroComponent {
   email = '';

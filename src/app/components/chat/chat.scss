@@ -1,56 +1,139 @@
+/* --- Contenedor Principal de Cristal --- */
 .chat-container {
   display: flex;
   flex-direction: column;
-  height: 80vh;
-  max-width: 700px;
-  margin: auto;
+  height: 79vh; // Un poco más alto
+  max-width: 800px;
+  margin: 2rem auto;
+  
+  // Nuestro efecto Glassmorphism
+  background: var(--color-cristal);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--color-borde-cristal);
   border-radius: 1rem;
-  background: #fff;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  
+  // Quitamos los estilos viejos de card
+  &.card {
+    border: none;
+    box-shadow: none;
+  }
 }
 
+/* --- Encabezado del Chat --- */
 .chat-header {
-  background: #0d6efd;
-  color: #fff;
-  border-radius: 1rem 1rem 0 0;
+  border-bottom: 1px solid var(--color-borde-cristal); // Borde sutil
+  h4 {
+    color: var(--color-texto);
+    font-family: var(--fuente-titulos);
+  }
 }
 
+/* --- Lista de Mensajes y Scrollbar Custom --- */
 .chat-list {
   overflow-y: auto;
-  background: #f8f9fa;
   flex-grow: 1;
-  display: flex;
-  flex-direction: column; 
+  padding: 1rem;
+
+  // Estilo para el scrollbar (Webkit browsers como Chrome/Edge/Safari)
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--color-acento);
+    border-radius: 10px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
 }
 
 .chat-row {
   display: flex;
 }
 
+/* --- Burbujas de Mensaje Rediseñadas --- */
 .msg-bubble {
-  max-width: 70%;
+  max-width: 75%;
   word-wrap: break-word;
+  padding: 0.75rem 1rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  
+  .meta {
+    color: var(--color-texto-secundario);
+    font-size: 0.75rem;
+  }
+
+  .msg-text {
+    font-size: 1rem;
+    line-height: 1.4;
+  }
 }
 
+// Tus mensajes
 .my-msg {
   justify-content: flex-end;
+  .msg-bubble {
+    background: linear-gradient(90deg, var(--color-acento), #574ae2);
+    color: white;
+    border-radius: 1.2rem 0.5rem 1.2rem 1.2rem;
+    .meta {
+      color: rgba(255, 255, 255, 0.7);
+    }
+  }
 }
 
-.my-msg .msg-bubble {
-  background: #0d6efd;
-  color: white;
-  border-radius: 1rem 1rem 0 1rem;
-}
-
+// Mensajes de otros
 .other-msg {
   justify-content: flex-start;
+  .msg-bubble {
+    background: var(--color-superficie);
+    color: var(--color-texto);
+    border-radius: 0.5rem 1.2rem 1.2rem 1.2rem;
+  }
 }
 
-.other-msg .msg-bubble {
-  background: #e9ecef;
-  color: #212529;
-  border-radius: 1rem 1rem 1rem 0;
-}
-
+/* --- Área de Input Moderna --- */
 .chat-input {
-  background: #fff;
+  border-top: 1px solid var(--color-borde-cristal);
+
+  .form-control {
+    background-color: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--color-borde-cristal);
+    color: var(--color-texto);
+    border-radius: 50px; // Totalmente redondeado
+    transition: all 0.2s ease-in-out;
+
+    &:focus {
+      background-color: rgba(0, 0, 0, 0.3);
+      border-color: var(--color-acento);
+      box-shadow: 0 0 15px var(--color-acento);
+    }
+  }
+
+  .btn-send {
+    background: var(--color-acento);
+    color: white;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    border: none;
+    transition: all 0.2s ease;
+
+    &:hover {
+      box-shadow: 0 0 15px var(--color-acento);
+      transform: scale(1.1);
+    }
+    
+    &:disabled {
+      background-color: var(--color-borde-cristal);
+      cursor: not-allowed;
+    }
+  }
 }

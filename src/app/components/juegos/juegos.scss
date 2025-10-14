@@ -2,10 +2,22 @@
    Estilos para el Componente de Juegos (Versión Completa)
    ================================================================= */
 
-/* --- Contenedor Principal y Títulos --- */
-.juegos-container h2 {
-  font-size: 2rem;
+.juegos-container {
+  /* ✨ ANIMACIÓN PARA EL TÍTULO ✨ */
+  h2 {
+    font-size: 2.5rem;
+    animation: fadeInUp 0.8s ease-out forwards;
+    opacity: 0; // Empezamos invisible
+  }
+  
+  /* ✨ ANIMACIÓN PARA EL SUBTÍTULO ✨ */
+  p.text-muted {
+    animation: fadeInUp 0.8s ease-out forwards;
+    animation-delay: 0.1s; // Un pequeño retraso
+    opacity: 0;
+  }
 }
+
 
 /* --- Estilos originales para las tarjetas (se mantienen) --- */
 .game-card {
@@ -19,6 +31,11 @@
   border-top-right-radius: 1rem;
   height: 180px;
   object-fit: cover;
+}
+
+.row.g-4 {
+  // Le aplicamos la animación de entrada a las tarjetas
+  animation: fadeInUp 0.8s ease-out forwards;
 }
 
 .game-card:hover {
@@ -68,7 +85,10 @@
 
 /* --- ✨ SECCIÓN DE ACCIONES (reemplaza al antiguo .resultados-link) ✨ --- */
 .acciones-container {
-  animation: fadeInUp 0.8s ease;
+  // Usamos la misma animación, pero con un pequeño retraso
+  animation: fadeInUp 0.8s ease-out forwards;
+  animation-delay: 0.3s; // 👈 ESTE RETRASO HACE LA MAGIA
+  opacity: 0; // Empezamos invisible para que el retraso funcione bien
   
   p {
     font-size: 1rem;

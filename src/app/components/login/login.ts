@@ -9,6 +9,7 @@ import { AuthService } from '../../services/auth.service';
   standalone: true,
   imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './login.html',
+  styleUrls: ['../../styles/auth-forms.scss']
 })
 export class LoginComponent {
   email = '';
@@ -27,10 +28,11 @@ export class LoginComponent {
   }
 
   // Login rápido para pruebas
-  async quickLogin(user: 'user1' | 'user2') {
+  async quickLogin(user: 'user1' | 'user2' | 'user3') {
     const users = {
       user1: { email: 'user1@test.com', password: '123456' },
       user2: { email: 'user2@test.com', password: '123456' },
+      user3: { email: 'user3@test.com', password: 'As123456' },
     };
     this.email = users[user].email;
     this.password = users[user].password;

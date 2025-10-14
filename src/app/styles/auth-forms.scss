@@ -1,0 +1,93 @@
+/* --- Contenedor principal que centra la tarjeta --- */
+.auth-container {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+/* --- Tarjeta de Autenticación (Glassmorphism) --- */
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 2rem;
+  
+  // Nuestro efecto de cristal
+  background: var(--color-cristal);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--color-borde-cristal);
+  border-radius: 1rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+
+  // Animación de entrada
+  animation: fadeInUp 0.8s ease-out;
+}
+
+/* --- Estilo para Inputs y Addons --- */
+.input-group-text {
+  background-color: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--color-borde-cristal);
+  color: var(--color-acento);
+  border-right: none; // Unimos el ícono con el input
+}
+
+.form-control {
+  background-color: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--color-borde-cristal);
+  color: var(--color-texto);
+  border-left: none; // Unimos el input con el ícono
+
+  &::placeholder {
+    color: var(--color-texto-secundario);
+  }
+
+  // Estilo al hacer foco (cuando el usuario hace clic)
+  &:focus {
+    background-color: rgba(0, 0, 0, 0.3);
+    color: var(--color-texto);
+    border-color: var(--color-acento);
+    box-shadow: 0 0 15px var(--color-acento); // Efecto "Glow"
+
+    // Hacemos que el ícono también brille
+    + .input-group-text,
+    ~ .input-group-text {
+      border-color: var(--color-acento);
+      box-shadow: 0 0 15px var(--color-acento);
+    }
+  }
+}
+// Hack para que el foco también funcione en el ícono
+.form-control:focus + .input-group-text {
+    border-color: var(--color-acento);
+    box-shadow: 0 0 15px var(--color-acento);
+}
+
+
+/* --- Otros Detalles (HR, botones secundarios) --- */
+hr {
+  border-color: var(--color-borde-cristal);
+}
+
+.btn-outline-secondary {
+  border-color: var(--color-borde-cristal);
+  color: var(--color-texto-secundario);
+
+  &:hover {
+    background-color: var(--color-acento);
+    border-color: var(--color-acento);
+    color: white;
+  }
+}
+
+// Animación de entrada
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

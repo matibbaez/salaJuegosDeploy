@@ -19,13 +19,15 @@
     </div>
   </div>
 
-  <div class="chat-input p-3 border-top d-flex">
+  <div class="chat-input p-3 d-flex align-items-center">
     <input 
-      class="form-control me-2 rounded-pill shadow-sm" 
+      class="form-control flex-grow-1" 
       [(ngModel)]="text" 
       (keyup.enter)="send()" 
       placeholder="Escribe un mensaje..." 
     />
-    <button class="btn btn-primary rounded-pill px-4 shadow-sm" (click)="send()">Enviar</button>
-  </div>
+    <button class="btn btn-send ms-2" (click)="send()" [disabled]="!text.trim()">
+      <i class="bi bi-send-fill"></i>
+    </button>
+</div>
 </div>

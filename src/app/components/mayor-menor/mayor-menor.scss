@@ -1,109 +1,173 @@
-.mayor-menor-container {
-  background: #1e1e2f;
+/* --- ✨ NUEVA TARJETA CONTENEDORA (GLASSMORPHISM) ✨ --- */
+.game-wrapper-card {
+  max-width: 800px;
+  margin: 2rem auto;
+  
+  // Reutilizamos el efecto de cristal que ya conocés
+  background: var(--color-cristal);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--color-borde-cristal);
   border-radius: 1rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   padding: 2rem;
-  max-width: 600px;
-  margin: auto;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-  color: #f8f9fa;
-  text-align: center;
+  animation: fadeIn 0.8s ease-out;
+}
 
-  h2 {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-    color: #f5f5f5; // violeta suave como en el hangman
-    font-weight: bold;
-  }
 
-  .playing-card {
-    width: 130px;
-    height: 180px;
-    border-radius: 12px;
-    background: #ffffff; // carta blanca
-    border: 2px solid #ddd;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-size: 2rem;
-    font-weight: bold;
-    margin: auto;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+/* --- Contenedor Interno (le quitamos el margen) --- */
+.game-container-mm {
+  display: flex;
+  flex-direction: column;
+}
 
+/* --- Marcador Superior (HUD Style) --- */
+.hud-scoreboard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--color-borde-cristal);
+  padding-bottom: 1rem;
+  margin-bottom: 2rem;
+
+  .stat-block {
+    text-align: center;
+    .label {
+      font-size: 0.9rem;
+      color: var(--color-texto-secundario);
+      text-transform: uppercase;
+    }
     .value {
-      font-size: 2.4rem;
-      margin-bottom: 0.5rem;
-      color: #111; // texto oscuro para contraste
-    }
-
-    .suit {
       font-size: 2rem;
-      color: #111; // palos también en oscuro
-    }
-
-    &:hover {
-      transform: scale(1.08);
-      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3);
+      font-family: var(--fuente-titulos);
+      font-weight: 700;
+      color: var(--color-texto);
+      &.success { color: #10b981; }
     }
   }
-
-  .btn {
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 600;
-    padding: 0.6rem 1.2rem;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-
-    &:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-    }
-
-    &.btn-success {
-      background: #10b981; // verde suave (emerald)
-      border: none;
-    }
-
-    &.btn-danger {
-      background: #ef4444; // rojo intenso
-      border: none;
-    }
-
-    &.btn-secondary {
-      background: #374151; // gris oscuro
-      border: none;
-    }
+  .game-title {
+    h2 { margin: 0; }
   }
+}
 
-  .scoreboard {
-    background: #2d2d44;
-    border-radius: 10px;
-    padding: 1rem;
-    margin-top: 1.5rem;
-    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.3);
+/* --- Arena de Duelo (Carta y Mazo) --- */
+.card-arena {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  margin: 2rem 0;
+  perspective: 1000px; 
+}
 
-    p {
-      margin: 0.4rem 0;
-      font-size: 1.1rem;
-
-      span {
-        font-weight: bold;
-        color: #a78bfa; // mismo violeta de acento
-      }
-    }
+.card-slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .slot-label {
+    margin-bottom: 1rem;
+    color: var(--color-texto-secundario);
   }
+}
 
-  /* Animación de fade-in */
-  animation: fadeIn 0.6s ease-in-out;
+/* --- CARTA DE JUEGO (Rediseño Total) --- */
+.playing-card {
+  width: 160px;
+  height: 220px;
+  background: var(--color-superficie);
+  border: 2px solid var(--color-acento);
+  border-radius: 12px;
+  box-shadow: 0 0 25px var(--color-acento);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: var(--fuente-titulos);
 
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  .value {
+    font-size: 4rem;
+    color: var(--color-texto);
+    text-shadow: 0 0 10px #fff;
   }
+  .suit {
+    font-size: 3rem;
+    color: var(--color-acento);
+    filter: drop-shadow(0 0 5px var(--color-acento));
+  }
+}
+
+.playing-card.flip-in {
+  animation: flipIn 0.6s ease-out forwards;
+}
+@keyframes flipIn {
+  from { transform: rotateY(90deg) scale(0.8); }
+  to { transform: rotateY(0) scale(1); }
+}
+
+.card-deck .card-back {
+  width: 160px;
+  height: 220px;
+  background: repeating-linear-gradient(45deg, var(--color-acento), var(--color-acento) 10px, var(--color-superficie) 10px, var(--color-superficie) 20px);
+  border: 2px solid var(--color-borde-cristal);
+  border-radius: 12px;
+  position: relative;
+  
+  &::before, &::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: inherit;
+    border: 2px solid var(--color-borde-cristal);
+    border-radius: 12px;
+    z-index: -1;
+  }
+  &::before { transform: translate(-8px, -8px); }
+  &::after { transform: translate(8px, 8px); }
+}
+
+/* --- BOTONES DE ACCIÓN (Grandes y Atractivos) --- */
+.action-area {
+  text-align: center;
+  p { font-size: 1.2rem; color: var(--color-texto-secundario); }
+  .button-group {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 1rem;
+  }
+  .btn-action {
+    border: none;
+    border-radius: 50px;
+    padding: 1rem 2rem;
+    font-size: 1.5rem;
+    font-family: var(--fuente-titulos);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+    
+    i { font-size: 1.5rem; }
+  }
+  .btn-mayor {
+    background: #10b981;
+    color: white;
+    &:hover { box-shadow: 0 0 25px #10b981; transform: scale(1.05); }
+  }
+  .btn-menor {
+    background: #ef4444;
+    color: white;
+    &:hover { box-shadow: 0 0 25px #ef4444; transform: scale(1.05); }
+  }
+}
+
+/* --- Pantalla de Fin de Juego --- */
+.game-over {
+  text-align: center;
+  animation: fadeIn 0.5s;
+  h4 { color: var(--color-acento); font-size: 2rem; }
+  .score-final { font-size: 1.2rem; color: var(--color-texto); strong { color: #fff; } }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }

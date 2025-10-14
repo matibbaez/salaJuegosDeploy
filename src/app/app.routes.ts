@@ -21,16 +21,16 @@ import { noAuthGuard } from './guards/no-auth.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
+  { path: 'home', component: HomeComponent, data: { animation: 'homePage' } },
 
   // 👇 Solo si NO está logueado
   { path: 'login', component: LoginComponent, canActivate: [noAuthGuard] },
   { path: 'registro', component: RegistroComponent, canActivate: [noAuthGuard] },
 
-  { path: 'quien-soy', component: QuienSoyComponent },
+  { path: 'quien-soy', component: QuienSoyComponent, data: { animation: 'quienSoyPage' } },
 
   // 👇 Solo si está logueado
-  { path: 'juegos', component: JuegosComponent, canActivate: [authGuard] },
+  { path: 'juegos', component: JuegosComponent, canActivate: [authGuard], data: { animation: 'juegosPage' } },
   { path: 'ahorcado', component: AhorcadoComponent, canActivate: [authGuard] },
   { path: 'mayor-menor', component: MayorMenorComponent, canActivate: [authGuard] },
   { path: 'preguntados', component: PreguntadosComponent, canActivate: [authGuard] },

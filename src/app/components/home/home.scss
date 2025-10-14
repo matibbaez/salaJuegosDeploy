@@ -12,6 +12,8 @@ body {
   justify-content: center;
   margin-top: 40px;
   color: #fff;
+  animation: fadeInUp 0.8s ease-out forwards;
+  opacity: 0; // Estado inicial
 }
 
 /* 🔹 Fuerza el banner a ocupar toda la pantalla */
@@ -26,6 +28,9 @@ body {
   border-radius: 0;
   /* Espacio inferior para separar de los juegos */
   height: 400px; /* Reducimos la altura del contenedor del banner */
+  animation: fadeInUp 0.8s ease-out forwards;
+  animation-delay: 0.2s; // Aparece un poco después del título
+  opacity: 0;
 }
 
 .banner-wrapper img {
@@ -70,6 +75,26 @@ body {
 /* --- GAME CARDS --- */
 .juegos-container {
   margin-top: 50px; /* Ajusta este valor si necesitas más o menos espacio */
+
+  h2 {
+    animation: fadeInUp 0.8s ease-out forwards;
+    animation-delay: 0.4s; // Aparece después del banner
+    opacity: 0;
+  }
+  
+  // El subtítulo de los juegos
+  p.text-muted {
+      animation: fadeInUp 0.8s ease-out forwards;
+      animation-delay: 0.5s;
+      opacity: 0;
+  }
+
+  // La grilla con las tarjetas de los juegos
+  .row.g-4 {
+    animation: fadeInUp 0.8s ease-out forwards;
+    animation-delay: 0.6s; // Lo último en aparecer
+    opacity: 0;
+  }
 }
 
 .game-card {
