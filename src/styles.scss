@@ -1,5 +1,22 @@
-/* --- IMPORTS Y FUENTES (Se mantienen tus elecciones) --- */
-@import "bootstrap/dist/css/bootstrap.min.css";
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/maps"; // <-- 🚨 ESTA ES LA LÍNEA QUE FALTABA Y SOLUCIONA EL ERROR
+@import "bootstrap/scss/mixins";
+
+// 2. Partes que SÍ estamos usando en el proyecto (lo esencial)
+@import "bootstrap/scss/root";
+@import "bootstrap/scss/reboot";      // Reseteo de estilos base
+@import "bootstrap/scss/containers"; // Para la clase .container
+@import "bootstrap/scss/grid";       // El sistema de columnas (row, col-md-4, etc.)
+@import "bootstrap/scss/forms";      // Estilos para forms, inputs, selects
+@import "bootstrap/scss/buttons";    // Estilos para .btn
+@import "bootstrap/scss/card";       // Estilos para .card
+@import "bootstrap/scss/nav";        // Para la navbar
+@import "bootstrap/scss/navbar";     // Para la navbar
+@import "bootstrap/scss/transitions";
+@import "bootstrap/scss/utilities";  // Clases útiles como .d-flex, .text-center
+@import "bootstrap/scss/utilities/api";
+
 @import "bootstrap-icons/font/bootstrap-icons.css";
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Alan+Sans:wght@300..900&display=swap');
