@@ -89,4 +89,34 @@ export class SupabaseService {
       )
       .subscribe();
   }
+
+  // ========= PERFILES =========
+  async obtenerPerfilUsuario(idUsuario: string) {
+    const { data, error } = await this.supabase
+      .from('profiles')
+      .select('es_admin') // Seleccionamos la columna que creamos
+      .eq('id', idUsuario)
+      .single(); 
+
+    if (error) throw error;
+    return data;
+  }
+
+  // ========= ENCUESTA =========
+  async guardarResultadoEncuesta(resultado: any) {
+    // El nombre de la tabla debe coincidir con el SQL que ejecutaste
+    const { data, error } = await this.supabase.from('encuestas').insert([resultado]);
+    if (error) throw error;
+    return data;
+  }
+
+  async obtenerResultadosEncuestas() {
+    const { data, error } = await this.supabase
+      .from('encuestas')
+      .select('*')
+      .order('fecha_creacion', { ascending: false });
+
+    if (error) throw error;
+    return data;
+  }
 }

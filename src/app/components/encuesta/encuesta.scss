@@ -1,0 +1,52 @@
+/* --- Contenedor del Formulario con Efecto Cristal --- */
+.survey-card {
+  background: var(--color-cristal);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--color-borde-cristal);
+  border-radius: 1rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  max-width: 600px;
+}
+
+/* --- Estilo para todos los inputs, selects y textareas --- */
+.form-control, .form-select {
+  background-color: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--color-borde-cristal);
+  color: var(--color-texto);
+  border-radius: 0.5rem;
+  transition: all 0.2s ease-in-out;
+
+  &::placeholder {
+    color: var(--color-texto-secundario);
+  }
+
+  // Estilo al hacer foco (cuando el usuario hace clic)
+  &:focus {
+    background-color: rgba(0, 0, 0, 0.3);
+    color: var(--color-texto);
+    border-color: var(--color-acento);
+    box-shadow: 0 0 15px var(--color-acento); // Efecto "Glow"
+  }
+}
+
+/* --- Estilo para las etiquetas (labels) --- */
+.form-label {
+  color: var(--color-texto-secundario);
+  font-weight: 500;
+}
+
+/* --- Mejora para los Radio Buttons --- */
+.form-check-input {
+  background-color: transparent;
+  border: 1px solid var(--color-borde-cristal);
+
+  &:checked {
+    background-color: var(--color-acento);
+    border-color: var(--color-acento);
+    box-shadow: 0 0 10px var(--color-acento);
+  }
+
+  &:focus {
+    box-shadow: 0 0 15px var(--color-acento);
+  }
+}

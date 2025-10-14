@@ -1,21 +1,40 @@
+/* --- IMPORTS Y FUENTES (Se mantienen tus elecciones) --- */
 @import "bootstrap/dist/css/bootstrap.min.css";
+@import "bootstrap-icons/font/bootstrap-icons.css";
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Alan+Sans:wght@300..900&display=swap');
 
-/* 🌙 Tema oscuro global */
+/* --- 🎨 Variables Globales (NUESTRA BASE DE DISEÑO) --- */
+:root {
+  --color-fondo: #12121c;                 /* Tu fondo oscuro, un poco azulado */
+  --color-superficie: #1a1b2f;            /* Para Navbar y superficies */
+  --color-cristal: rgba(26, 27, 47, 0.6);   /* Color base para el efecto cristal */
+  --color-borde-cristal: rgba(137, 123, 255, 0.2); /* Borde sutil */
+  --color-acento: #897bff;                /* Un violeta/azul eléctrico para el acento principal */
+  --color-acento-secundario: #00c6ff;     /* Un cian para gradientes */
+  --color-texto: #e1e1e6;                 /* Texto principal, más brillante */
+  --color-texto-secundario: #a8a8b3;      /* Texto más apagado */
+  --fuente-principal: 'Alan Sans', sans-serif;
+  --fuente-titulos: 'Poppins', sans-serif;
+}
+
+/* --- ⚙️ Estilos Globales --- */
 body {
-  background-color: #121212; /* fondo oscuro */
-  color: #f8f9fa;            /* texto claro */
-  font-family: 'Alan Sans', sans-serif;
+  background-color: var(--color-fondo);
+  color: var(--color-texto);
+  font-family: var(--fuente-principal);
+  /* ✨ NUEVO: Un sutil degradado para darle más vida al fondo */
+  background-image: radial-gradient(circle at 50% 0%, var(--color-superficie) 0%, var(--color-fondo) 40%);
 }
 
-/* Navbar */
+/* --- 🚀 NAVBAR (Más integrada) --- */
 .navbar {
-  background: linear-gradient(90deg, #1c1c1c, #2a2a2a);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+  background-color: var(--color-superficie);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  border-bottom: 1px solid var(--color-borde-cristal); /* Borde sutil */
 }
 
-.navbar-icon {
+.navbar-icon { /* Se mantiene tu buen diseño */
   width: 90px;
   height: 90px;
   object-fit: contain;
@@ -28,64 +47,86 @@ body {
 }
 
 .navbar-dark .navbar-nav .nav-link {
-  color: #cfcfcf;
-  transition: color 0.2s ease;
+  color: var(--color-texto-secundario);
+  font-family: var(--fuente-titulos);
+  transition: all 0.2s ease;
 }
 
 .navbar-dark .navbar-nav .nav-link:hover,
 .navbar-dark .navbar-nav .nav-link.active {
-  color: #ffffff;
+  color: var(--color-acento); /* ✨ Usamos el color de acento */
+  text-shadow: 0 0 10px var(--color-acento);
 }
 
-/* 💡 Tarjetas de juegos */
+/* --- 💡 TARJETAS DE JUEGO (LA ESTRELLA DEL DISEÑO) --- */
 .game-card {
-  background-color: #1e1e1e;
-  color: #f0f0f0;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  /* 🔥 MEJORADO: Aplicamos el efecto cristal directamente */
+  background: var(--color-cristal);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--color-borde-cristal);
   border-radius: 1rem;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease-out;
+  color: var(--color-texto);
 
-.game-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  &:hover {
+    transform: translateY(-8px) scale(1.02);
+    /* ✨ NUEVO: Borde y sombra que brillan con el color de acento */
+    border-color: var(--color-acento);
+    box-shadow: 0 0 25px rgba(137, 123, 255, 0.4);
+  }
+
+  .card-img-top { /* Para que la imagen respete el borde redondeado */
+      border-top-left-radius: 1rem;
+      border-top-right-radius: 1rem;
+  }
 }
 
 .card-title {
-  color: #ffffff;
+  color: var(--color-texto);
+  font-family: var(--fuente-titulos);
 }
 
 .card-text {
-  color: #bdbdbd;
+  color: var(--color-texto-secundario);
 }
 
-/* 🟦 Botones */
-.btn-primary {
-  background: linear-gradient(90deg, #0d6efd, #3b82f6);
+/* --- 🟦 BOTONES (UNIFICADOS Y CON ESTILO) --- */
+.btn-primary, .btn-gradient { /* Unificamos el estilo principal */
+  background: linear-gradient(90deg, var(--color-acento), var(--color-acento-secundario));
   border: none;
-}
+  border-radius: 0.5rem;
+  font-family: var(--fuente-titulos);
+  font-weight: 600;
+  box-shadow: 0 4px 15px rgba(137, 123, 255, 0.2);
+  transition: all 0.2s ease-in-out;
 
-.btn-primary:hover {
-  background: linear-gradient(90deg, #3b82f6, #60a5fa);
-  transform: translateY(-2px);
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(137, 123, 255, 0.4); /* Efecto "Glow" */
+  }
 }
 
 .btn-secondary {
-  background-color: #2c2c2c;
-  border: 1px solid #444;
-  color: #aaa;
+  background: transparent;
+  border: 1px solid var(--color-borde-cristal);
+  color: var(--color-texto-secundario);
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    background-color: var(--color-acento);
+    border-color: var(--color-acento);
+    color: white;
+  }
 }
 
-.btn-secondary.disabled {
-  opacity: 0.7;
-}
-
-/* 💬 Botón flotante de chat */
+/* --- 💬 BOTÓN FLOTANTE DE CHAT (Integrado con la paleta) --- */
 .chat-float-btn {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background: linear-gradient(45deg, #25d366, #128c7e);
+  /* 🔥 MEJORADO: Usando los colores de acento para el gradiente */
+  background: linear-gradient(45deg, #25d366, #128c7e); /* Mantenemos el verde de WhatsApp por reconocimiento */
+  /* Si prefieres integrarlo totalmente:
+  background: linear-gradient(45deg, var(--color-acento), #574ae2);
+  */
   color: white;
   border-radius: 50%;
   width: 60px;
@@ -95,42 +136,41 @@ body {
   justify-content: center;
   font-size: 28px;
   text-decoration: none;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0px 0px 20px rgba(37, 211, 102, 0.4);
+  transition: all 0.2s ease;
   z-index: 1000;
+
+  &:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 0px 30px rgba(37, 211, 102, 0.6);
+  }
 }
 
-.chat-float-btn:hover {
-  transform: scale(1.1);
-  box-shadow: 0px 6px 14px rgba(0, 0, 0, 0.5);
-}
-
-/* 🎯 Encabezados */
+/* --- 🎯 Encabezados y Texto --- */
 h1, h2, h3, h4, h5 {
-  color: #b5b5b5;
+  color: var(--color-texto);
+  font-family: var(--fuente-titulos);
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-/* 🧩 Overlay para juegos bloqueados */
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(18, 18, 18, 0.7);
-  border-radius: 1rem;
-  backdrop-filter: blur(3px);
-}
-
-/* 🎨 Ajuste de color para texto secundario */
 .text-muted {
-  color: #b5b5b5 !important;
+  color: var(--color-texto-secundario) !important;
 }
 
+/* 🔥 MEJORADO: Usando las variables de acento para el gradiente */
 .gradient-text {
-  background: linear-gradient(90deg, #00c6ff, #0072ff);
+  background: linear-gradient(90deg, var(--color-acento), var(--color-acento-secundario));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-weight: 700;
+}
+
+/* Se mantiene tu overlay, es una buena clase para tener */
+.overlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(18, 18, 18, 0.7);
+  border-radius: 1rem;
+  backdrop-filter: blur(3px);
 }

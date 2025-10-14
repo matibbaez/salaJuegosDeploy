@@ -1,0 +1,42 @@
+<div class="container my-5">
+  <h2 class="text-center fw-bold text-gradient mb-4">📊 Resultados de la Encuesta (Admin)</h2>
+
+  <div *ngIf="cargando()" class="text-center">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Cargando...</span>
+    </div>
+  </div>
+
+  <div *ngIf="!cargando() && resultadosEncuesta().length > 0" class="table-responsive">
+    <table class="table table-striped table-hover shadow-sm">
+      <thead class="table-dark">
+        <tr>
+          <th>Email</th>
+          <th>Nombre Completo</th>
+          <th>Edad</th>
+          <th>Teléfono</th>
+          <th>Satisfacción</th>
+          <th>Juego Favorito</th>
+          <th>Sugerencia</th>
+          <th>Fecha</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let resultado of resultadosEncuesta()">
+          <td>{{ resultado.email_usuario }}</td>
+          <td>{{ resultado.nombre_completo }}</td>
+          <td>{{ resultado.edad }}</td>
+          <td>{{ resultado.telefono }}</td>
+          <td>{{ resultado.satisfaccion }}/5</td>
+          <td>{{ resultado.juego_favorito }}</td>
+          <td>{{ resultado.comentarios }}</td>
+          <td>{{ resultado.fecha_creacion | date:'dd/MM/yyyy HH:mm' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="!cargando() && resultadosEncuesta().length === 0" class="alert alert-info text-center">
+    Aún no se han enviado encuestas.
+  </div>
+</div>

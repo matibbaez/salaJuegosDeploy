@@ -1,35 +1,75 @@
-.card {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  background: #fff;
+@import '../../../styles.scss';
+
+.quien-soy-container {
+  animation: fadeInUp 0.8s ease-out;
 }
 
-.card:hover {
-  transform: scale(1.02);
-  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+/* --- Estilo para las tarjetas de cristal --- */
+.profile-card, .game-explanation-card {
+  background: var(--color-cristal);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--color-borde-cristal);
+  border-radius: 1rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
-.avatar {
-  width: 120px;
-  height: 120px;
-  border-radius: 8px;
-  margin-right: 16px;
-  transition: transform 0.3s ease-in-out;
+/* --- Avatar Redondo y con Efecto --- */
+.profile-avatar {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%; // Hacemos el avatar circular
+  border: 3px solid var(--color-acento);
+  box-shadow: 0 0 20px rgba(137, 123, 255, 0.4);
+  object-fit: cover;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
 }
 
-.avatar:hover {
-  transform: scale(1.05);
+.profile-bio {
+  color: var(--color-texto-secundario);
+  font-size: 1.1rem;
+  font-style: italic;
 }
 
-h3, h5 {
-  color: #0d6efd; // color principal de Bootstrap
+/* --- Sección de Estadísticas con Íconos --- */
+.profile-stats {
+  gap: 1.5rem; // Espacio entre los items
+
+  .stat-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-texto);
+    font-size: 1rem;
+
+    i {
+      color: var(--color-acento);
+      font-size: 1.2rem;
+    }
+  }
 }
 
-h4 {
-  color: #4383e4;
+.game-explanation-card {
+  h4 {
+    color: var(--color-texto);
+  }
+  p {
+    color: var(--color-texto-secundario);
+    line-height: 1.6;
+  }
 }
 
-p {
-  line-height: 1.5;
+// Animación de entrada
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

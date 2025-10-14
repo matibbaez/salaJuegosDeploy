@@ -5,7 +5,7 @@ import { Directive, ElementRef, Input, OnChanges } from '@angular/core';
   standalone: true
 })
 export class AutoscrollDirective implements OnChanges {
-  @Input('appAutoscroll') trigger: any; // Cualquier cambio en esta entrada activará el scroll
+  @Input('appAutoscroll') trigger: any; 
 
   constructor(private el: ElementRef) {}
 
@@ -21,8 +21,7 @@ export class AutoscrollDirective implements OnChanges {
     try {
       const parentElement = this.el.nativeElement;
       if (parentElement) {
-        // Obtenemos el último elemento hijo dentro del contenedor del chat
-        // (que debería ser el último mensaje)
+        
         const lastChild = parentElement.lastElementChild;
 
         if (lastChild) {

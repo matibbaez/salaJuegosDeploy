@@ -1,15 +1,15 @@
-<!-- src/app/components/resultados/resultados.html -->
-<div class="container resultados-container">
-  <h2 class="titulo">🏆 Resultados Globales</h2>
+<div class="resultados-container container py-5">
+  <h2 class="gradient-text mb-4">🏆 Resultados Globales</h2>
 
-  <div *ngIf="loading()">Cargando resultados...</div>
+  <div *ngIf="loading()" class="loading-container">
+    <div class="spinner"></div>
+    <span>Cargando resultados...</span>
+  </div>
 
-  <div *ngIf="!loading()">
-    <!-- Selector de juegos -->
-    <div class="filtro-juegos">
-      <label for="juego-selector">Filtrar por juego:</label>
-      <select id="juego-selector" [(ngModel)]="juegoSeleccionado" (change)="filtrarResultados()">
-        <option value="todos">Todos los Juegos</option>
+  <div *ngIf="!loading()" class="resultados-content">
+    <div class="filtro-juegos mb-5">
+      <label for="juego-selector"><i class="bi bi-funnel-fill"></i> Filtrar por juego:</label>
+      <select id="juego-selector" class="form-select" [(ngModel)]="juegoSeleccionado" (change)="filtrarResultados()">
         <option value="ahorcado">Ahorcado</option>
         <option value="mayorMenor">Mayor o Menor</option>
         <option value="preguntados">Preguntados</option>
@@ -17,10 +17,9 @@
       </select>
     </div>
 
-    <!-- Ahorcado -->
     <div class="tabla-juego" *ngIf="mostrarJuego('ahorcado')">
       <h3>🪓 Ahorcado</h3>
-      <table>
+      <table class="table">
         <thead>
           <tr>
             <th>Jugador</th>
@@ -32,20 +31,19 @@
         </thead>
         <tbody>
           <tr *ngFor="let r of ahorcado()">
-            <td>{{ r.username }}</td>
-            <td>{{ r.word }}</td>
-            <td>{{ r.won ? '✅' : '❌' }}</td>
-            <td>{{ (r.time_ms / 1000) | number:'1.0-1' }}</td>
-            <td>{{ r.guesses }}</td>
+            <td data-label="Jugador">{{ r.username }}</td>
+            <td data-label="Palabra">{{ r.word }}</td>
+            <td data-label="¿Ganó?">{{ r.won ? '✅' : '❌' }}</td>
+            <td data-label="Tiempo (s)">{{ (r.time_ms / 1000) | number:'1.0-1' }}</td>
+            <td data-label="Intentos">{{ r.guesses }}</td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <!-- Mayor o Menor -->
     <div class="tabla-juego" *ngIf="mostrarJuego('mayorMenor')">
       <h3>🔼🔽 Mayor o Menor</h3>
-      <table>
+      <table class="table">
         <thead>
           <tr>
             <th>Jugador</th>
@@ -55,18 +53,17 @@
         </thead>
         <tbody>
           <tr *ngFor="let r of mayorMenor()">
-            <td>{{ r.username }}</td>
-            <td>{{ r.correct_count }}</td>
-            <td>{{ r.total_rounds }}</td>
+            <td data-label="Jugador">{{ r.username }}</td>
+            <td data-label="Aciertos">{{ r.correct_count }}</td>
+            <td data-label="Rondas">{{ r.total_rounds }}</td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <!-- Preguntados -->
     <div class="tabla-juego" *ngIf="mostrarJuego('preguntados')">
       <h3>❓ Preguntados</h3>
-      <table>
+      <table class="table">
         <thead>
           <tr>
             <th>Jugador</th>
@@ -77,35 +74,34 @@
         </thead>
         <tbody>
           <tr *ngFor="let r of preguntados()">
-            <td>{{ r.username }}</td>
-            <td>{{ r.topic }}</td>
-            <td>{{ r.correct_answers }}</td>
-            <td>{{ r.total_questions }}</td>
+            <td data-label="Jugador">{{ r.username }}</td>
+            <td data-label="Tema">{{ r.topic }}</td>
+            <td data-label="Aciertos">{{ r.correct_answers }}</td>
+            <td data-label="Total">{{ r.total_questions }}</td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <!-- --- NUEVO: Adivina la Bandera --- -->
     <div class="tabla-juego" *ngIf="mostrarJuego('adivinaBandera')">
       <h3>🗺️ Adivina la Bandera</h3>
-      <table>
+      <table class="table">
         <thead>
           <tr>
             <th>Jugador</th>
             <th>Puntuación</th>
-            <th>Banderas Adivinadas</th>
-            <th>Intentos Totales</th>
+            <th>Aciertos</th>
+            <th>Intentos</th>
             <th>Tiempo (s)</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let r of adivinaBandera()">
-            <td>{{ r.username }}</td>
-            <td>{{ r.score }}</td>
-            <td>{{ r.flags_guessed }}</td>
-            <td>{{ r.total_attempts }}</td>
-            <td>{{ (r.time_taken_ms / 1000) | number:'1.0-1' }}</td>
+            <td data-label="Jugador">{{ r.username }}</td>
+            <td data-label="Puntuación">{{ r.score }}</td>
+            <td data-label="Aciertos">{{ r.flags_guessed }}</td>
+            <td data-label="Intentos">{{ r.total_attempts }}</td>
+            <td data-label="Tiempo (s)">{{ (r.time_taken_ms / 1000) | number:'1.0-1' }}</td>
           </tr>
         </tbody>
       </table>

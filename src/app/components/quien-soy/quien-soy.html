@@ -1,33 +1,49 @@
-<div class="card p-4" style="max-width:800px;margin:auto;">
-  <h3>Quién soy</h3>
+<div class="quien-soy-container container py-5">
+  <div class="profile-card p-4 p-md-5">
+    <div *ngIf="user$ | async as user; else loading">
+      <div class="row align-items-center">
+        <div class="col-md-4 text-center">
+          <img [src]="user.avatar_url" alt="Avatar de {{ user.name }}" class="profile-avatar mb-3 mb-md-0">
+        </div>
 
-  <div *ngIf="user$ | async as user; else loading">
-    <div class="d-flex">
-      <img [src]="user.avatar_url" alt="avatar" class="avatar">
-      <div>
-        <h4>{{ user.name || user.login }}</h4>
-        <p>{{ user.bio }}</p>
-        <p><strong>Ubicación:</strong> {{ user.location || '—' }}</p>
-        <p>
-          <strong>Repos públicos:</strong> {{ user.public_repos }}
-          — <strong>Seguidores:</strong> {{ user.followers }}
-        </p>
-        <p><a [href]="user.html_url" target="_blank">Perfil en GitHub</a></p>
+        <div class="col-md-8">
+          <h2 class="gradient-text">{{ user.name || user.login }}</h2>
+          <p class="profile-bio">{{ user.bio }}</p>
+
+          <div class="profile-stats d-flex flex-wrap my-4">
+            <div class="stat-item">
+              <i class="bi bi-geo-alt-fill"></i>
+              <span>{{ user.location || 'Desconocida' }}</span>
+            </div>
+            <div class="stat-item">
+              <i class="bi bi-journal-bookmark-fill"></i>
+              <span>{{ user.public_repos }} Repos</span>
+            </div>
+            <div class="stat-item">
+              <i class="bi bi-people-fill"></i>
+              <span>{{ user.followers }} Seguidores</span>
+            </div>
+          </div>
+          
+          <a [href]="user.html_url" target="_blank" class="btn btn-primary mt-3">
+            <i class="bi bi-github"></i> Ver Perfil en GitHub
+          </a>
+        </div>
       </div>
     </div>
-
-    <hr>
-    <h5>Juego propio — explicación</h5>
-    <p>
-      Elección del juego propio: <strong>Adivina la bandera</strong>.
-      <br>
-      Explicación: El jugador ve una bandera de un país y debe adivinarlo;
-      Se mide tiempo y precisión.
-    </p>
-    <p>Motivo de la elección: permite evaluar memoria de trabajo y respuesta motriz en una interfaz simple.</p>
+    
+    <ng-template #loading>
+      <div class="text-center p-5">
+        <div class="spinner-border text-light" role="status">
+          <span class="visually-hidden">Cargando...</span>
+        </div>
+        <p class="mt-3">Cargando datos desde GitHub...</p>
+      </div>
+    </ng-template>
   </div>
 
-  <ng-template #loading>
-    <p>Cargando datos desde GitHub...</p>
-  </ng-template>
+  <div class="game-explanation-card p-4 mt-4">
+    <h4 class="card-title"><i class="bi bi-joystick"></i> Mi Juego: Adivina la Bandera</h4>
+    <p>Este juego fue elegido para evaluar la memoria de trabajo y la velocidad de respuesta en una interfaz simple e intuitiva. El jugador debe adivinar a qué país pertenece la bandera que se muestra, compitiendo contra el tiempo para lograr la mayor precisión posible.</p>
+  </div>
 </div>

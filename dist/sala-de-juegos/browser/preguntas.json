@@ -1,0 +1,210 @@
+{
+  "deportes": [
+    {
+      "question": "¿Cuántos jugadores hay en un equipo de fútbol?",
+      "options": ["9", "10", "11", "12"],
+      "correctIndex": 2
+    },
+    {
+      "question": "¿Qué deporte practica Lionel Messi?",
+      "options": ["Básquet", "Tenis", "Fútbol", "Rugby"],
+      "correctIndex": 2
+    },
+    {
+      "question": "¿En qué deporte se utiliza un 'birdie'?",
+      "options": ["Tenis", "Bádminton", "Golf", "Voleibol"],
+      "correctIndex": 1
+    },
+    {
+      "question": "¿Cuál es el país con más Copas Mundiales de la FIFA?",
+      "options": ["Alemania", "Italia", "Argentina", "Brasil"],
+      "correctIndex": 3
+    },
+    {
+      "question": "¿Qué número usa Michael Jordan en la mayor parte de su carrera?",
+      "options": ["23", "33", "12", "45"],
+      "correctIndex": 0
+    },
+    {
+      "question": "¿En qué deporte se anota un 'touchdown'?",
+      "options": ["Béisbol", "Fútbol Americano", "Rugby", "Balonmano"],
+      "correctIndex": 1
+    },
+    {
+      "question": "¿Cuántos sets máximos se pueden jugar en un partido de tenis profesional masculino?",
+      "options": ["3", "4", "5", "6"],
+      "correctIndex": 2
+    },
+    {
+      "question": "¿Qué atleta es conocido como 'El Rayo'?",
+      "options": ["Carl Lewis", "Jesse Owens", "Usain Bolt", "Tyson Gay"],
+      "correctIndex": 2
+    },
+    {
+      "question": "¿Cuál es la duración reglamentaria de un partido de baloncesto (NBA)?",
+      "options": ["40 minutos", "48 minutos", "50 minutos", "60 minutos"],
+      "correctIndex": 1
+    },
+    {
+      "question": "¿Qué país ganó la primera Copa Mundial de Fútbol en 1930?",
+      "options": ["Brasil", "Italia", "Uruguay", "Argentina"],
+      "correctIndex": 2
+    }
+  ],
+  "musica": [
+    {
+      "question": "¿Quién es el 'Rey del Pop'?",
+      "options": ["Elvis Presley", "Michael Jackson", "Prince", "Freddie Mercury"],
+      "correctIndex": 1
+    },
+    {
+      "question": "¿Qué instrumento toca Slash?",
+      "options": ["Batería", "Bajo", "Guitarra", "Piano"],
+      "correctIndex": 2
+    },
+    {
+      "question": "¿Qué banda es conocida por la canción 'Bohemian Rhapsody'?",
+      "options": ["The Beatles", "Led Zeppelin", "Queen", "Pink Floyd"],
+      "correctIndex": 2
+    },
+    {
+      "question": "¿De qué país es originario el género musical Reggae?",
+      "options": ["Cuba", "Brasil", "Jamaica", "México"],
+      "correctIndex": 2
+    },
+    {
+      "question": "¿Quién es la vocalista principal de la banda Evanescence?",
+      "options": ["Tarja Turunen", "Sharon den Adel", "Amy Lee", "Cristina Scabbia"],
+      "correctIndex": 2
+    },
+    {
+      "question": "¿Qué famoso guitarrista es conocido como 'Manolarga' (Slowhand)?",
+      "options": ["Jimi Hendrix", "Eric Clapton", "Jimmy Page", "B.B. King"],
+      "correctIndex": 1
+    },
+    {
+      "question": "¿Qué grupo de K-pop lanzó la canción 'Dynamite'?",
+      "options": ["BLACKPINK", "EXO", "BTS", "TWICE"],
+      "correctIndex": 2
+    },
+    {
+      "question": "¿Cuál de estas canciones NO es de The Beatles?",
+      "options": ["Hey Jude", "Imagine", "Yesterday", "Let It Be"],
+      "correctIndex": 1
+    },
+    {
+      "question": "¿En qué año se publicó el álbum 'Thriller' de Michael Jackson?",
+      "options": ["1980", "1982", "1984", "1986"],
+      "correctIndex": 1
+    },
+    {
+      "question": "¿Qué cantante es conocida como 'La Reina del Soul'?",
+      "options": ["Etta James", "Diana Ross", "Aretha Franklin", "Tina Turner"],
+      "correctIndex": 2
+    }
+  ],
+  "entretenimiento": [
+    {
+      "question": "¿Qué saga tiene a Darth Vader?",
+      "options": ["Harry Potter", "Star Wars", "Marvel", "Matrix"],
+      "correctIndex": 1
+    },
+    {
+      "question": "¿Quién es el protagonista de 'Iron Man'?",
+      "options": ["Chris Evans", "Robert Downey Jr.", "Tom Holland", "Mark Ruffalo"],
+      "correctIndex": 1
+    },
+    {
+      "question": "¿Qué película ganó el Óscar a Mejor Película en 2020?",
+      "options": ["1917", "Parásitos", "Joker", "Érase una vez en Hollywood"],
+      "correctIndex": 1
+    },
+    {
+      "question": "¿Quién escribió la saga de libros 'Harry Potter'?",
+      "options": ["Stephen King", "J.R.R. Tolkien", "J.K. Rowling", "George R.R. Martin"],
+      "correctIndex": 2
+    },
+    {
+      "question": "¿En qué ciudad se desarrolla la serie 'Friends'?",
+      "options": ["Los Ángeles", "Chicago", "Nueva York", "Boston"],
+      "correctIndex": 2
+    },
+    {
+      "question": "¿Qué personaje de Disney es conocido por sus grandes orejas y vuela con ellas?",
+      "options": ["Mickey Mouse", "Dumbo", "Bambi", "Goofy"],
+      "correctIndex": 1
+    },
+    {
+      "question": "¿Cuál de estos actores NO ha interpretado a James Bond?",
+      "options": ["Sean Connery", "Daniel Craig", "Hugh Jackman", "Roger Moore"],
+      "correctIndex": 2
+    },
+    {
+      "question": "¿Qué serie de televisión está ambientada en el continente de Westeros?",
+      "options": ["The Witcher", "Vikingos", "Game of Thrones", "El Señor de los Anillos"],
+      "correctIndex": 2
+    },
+    {
+      "question": "¿Qué director es conocido por películas como 'Pulp Fiction' y 'Kill Bill'?",
+      "options": ["Martin Scorsese", "Steven Spielberg", "Quentin Tarantino", "Christopher Nolan"],
+      "correctIndex": 2
+    },
+    {
+      "question": "¿Cuál es el nombre del planeta natal de Superman?",
+      "options": ["Tatooine", "Krypton", "Vulcan", "Asgard"],
+      "correctIndex": 1
+    }
+  ],
+  "historia": [
+    {
+      "question": "¿En qué año fue la Revolución Francesa?",
+      "options": ["1789", "1848", "1492", "1914"],
+      "correctIndex": 0
+    },
+    {
+      "question": "¿Quién fue el primer presidente de EE.UU.?",
+      "options": ["Abraham Lincoln", "George Washington", "Thomas Jefferson", "John Adams"],
+      "correctIndex": 1
+    },
+    {
+      "question": "¿En qué siglo cayó el Imperio Romano de Occidente?",
+      "options": ["III d.C.", "IV d.C.", "V d.C.", "VI d.C."],
+      "correctIndex": 2
+    },
+    {
+      "question": "¿Quién descubrió América en 1492?",
+      "options": ["Américo Vespucio", "Fernando de Magallanes", "Cristóbal Colón", "Vasco da Gama"],
+      "correctIndex": 2
+    },
+    {
+      "question": "¿Qué muro fue derribado en Berlín en 1989?",
+      "options": ["Muro de Adriano", "Muro de China", "Muro de Berlín", "Muro de la Atlántida"],
+      "correctIndex": 2
+    },
+    {
+      "question": "¿En qué año comenzó la Primera Guerra Mundial?",
+      "options": ["1905", "1914", "1918", "1939"],
+      "correctIndex": 1
+    },
+    {
+      "question": "¿Quién fue el líder de la Unión Soviética durante la Segunda Guerra Mundial?",
+      "options": ["Vladimir Lenin", "Nikita Khrushchev", "Mijaíl Gorbachov", "Joseph Stalin"],
+      "correctIndex": 3
+    },
+    {
+      "question": "¿Cuál fue la civilización antigua que construyó las pirámides de Giza?",
+      "options": ["Mesopotamia", "Grecia", "Egipto", "Roma"],
+      "correctIndex": 2
+    },
+    {
+      "question": "¿Qué evento marcó el inicio de la Edad Media?",
+      "options": ["La caída de Constantinopla", "La caída del Imperio Romano de Occidente", "El descubrimiento de América", "La Revolución Francesa"],
+      "correctIndex": 1
+    },
+    {
+      "question": "¿Quién formuló la teoría de la relatividad?",
+      "options": ["Isaac Newton", "Galileo Galilei", "Albert Einstein", "Stephen Hawking"],
+      "correctIndex": 2
+    }
+  ]
+}

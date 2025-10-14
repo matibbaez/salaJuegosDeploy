@@ -3,75 +3,80 @@
   <p class="text-center text-muted mb-5">Elige un juego y empieza a divertirte</p>
 
   <div class="row g-4">
-    <!-- Juego 1: Ahorcado -->
     <div class="col-md-6 col-lg-4">
       <div class="card game-card shadow-sm h-100">
-        <img src="ahorcadoBanner.png" class="card-img-top" alt="Ahorcado">
+        <img src="/ahorcadoBanner.png" class="card-img-top" alt="Ahorcado">
         <div class="card-body d-flex flex-column">
           <h5 class="card-title fw-bold">Ahorcado</h5>
-          <p class="card-text text-muted flex-grow-1">
-            Adivina la palabra secreta antes de que se complete el dibujo. ¿Podrás salvarte?
+          <p class="card-text flex-grow-1">
+            Adivina la palabra secreta antes de que se complete el dibujo.
           </p>
           <a routerLink="/ahorcado" class="btn btn-primary mt-auto w-100">Jugar</a>
         </div>
       </div>
     </div>
 
-    <!-- Juego 2: Mayor o Menor -->
     <div class="col-md-6 col-lg-4">
-      <div class="card game-card shadow-sm h-100">
-        <img src="mayorMenor.png" class="card-img-top" alt="Mayor o Menor">
-        <div class="card-body d-flex flex-column">
-          <h5 class="card-title fw-bold">Mayor o Menor</h5>
-          <p class="card-text text-muted flex-grow-1">
-            Adivina si la siguiente carta será mayor o menor. ¡Parece fácil, pero no lo es!
-          </p>
-          <a routerLink="/mayor-menor" class="btn btn-primary mt-auto w-100">Jugar</a>
+        <div class="card game-card shadow-sm h-100">
+          <img src="/mayorMenor.png" class="card-img-top" alt="Mayor o Menor">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title fw-bold">Mayor o Menor</h5>
+            <p class="card-text flex-grow-1">
+              Adivina si la siguiente carta será mayor o menor. ¡No es tan fácil!
+            </p>
+            <a routerLink="/mayor-menor" class="btn btn-primary mt-auto w-100">Jugar</a>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- Juego 3: Preguntados -->
     <div class="col-md-6 col-lg-4">
-      <div class="card game-card shadow-sm h-100">
-        <img src="preguntadosBanner.png" class="card-img-top" alt="Mayor o Menor">
-        <div class="card-body d-flex flex-column">
-          <h5 class="card-title fw-bold">Preguntados</h5>
-          <p class="card-text text-muted flex-grow-1">
-            Responde preguntas y mide tus conocimientos.
-          </p>
-          <a routerLink="/preguntados" class="btn btn-primary mt-auto w-100">Jugar</a>
+        <div class="card game-card shadow-sm h-100">
+          <img src="/preguntadosBanner.png" class="card-img-top" alt="Preguntados">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title fw-bold">Preguntados</h5>
+            <p class="card-text flex-grow-1">
+              Responde preguntas y mide tus conocimientos sobre cultura general.
+            </p>
+            <a routerLink="/preguntados" class="btn btn-primary mt-auto w-100">Jugar</a>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- Juego 4: Mi juego -->
     <div class="col-md-6 col-lg-4">
       <div class="card game-card shadow-sm h-100">
-        <img src="adivinaLaBandera.png" class="card-img-top" alt="Mayor o Menor">
+        <img src="/adivinaLaBandera.png" class="card-img-top" alt="Adivina la bandera">
         <div class="card-body d-flex flex-column">
           <h5 class="card-title fw-bold">Adivina la bandera</h5>
-          <p class="card-text text-muted flex-grow-1">
-            Prepárate para un gran desafío.
+          <p class="card-text flex-grow-1">
+            Prepárate para un gran desafío de geografía y memoria visual.
           </p>
           <a routerLink="/adivina-bandera" class="btn btn-primary mt-auto w-100">Jugar</a>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- Botón flotante de chat -->
-    <a routerLink="/chat"
-      class="chat-float-btn">
-      💬
+  <a routerLink="/chat" class="chat-float-btn"> 💬 </a>
+
+</div>
+
+<div class="acciones-container text-center mt-5">
+  <p class="text-muted mb-3">Revisa tus estadísticas o danos tu opinión</p>
+
+  <div class="d-flex flex-wrap justify-content-center gap-3">
+    <a routerLink="/resultados" class="btn btn-primary">
+      Ver mis resultados 🏆
     </a>
 
-</div>
+    <a routerLink="/encuesta" class="btn btn-primary">
+      Responder Encuesta 📝
+    </a>
 
-<div class="resultados-link text-center mt-5">
-  <p class="text-muted mb-3">¿Querés ver cómo te fue en los juegos?</p>
-  <a routerLink="/resultados" class="btn btn-outline-light btn-lg fw-semibold">
-    Ver mis resultados 🏆
-  </a>
-</div>
-
+    <a *ngIf="usuarioLogueado"
+       routerLink="/resultados-encuesta"
+       class="btn"
+       [ngClass]="{ 'btn-primary': esAdmin(), 'btn-secondary disabled': !esAdmin() }">
+      Resultados Encuesta 📊
+    </a>
+  </div>
 </div>

@@ -1,9 +1,8 @@
-// src/app/pipes/time-ago.pipe.ts
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
   name: 'timeAgo',
-  standalone: true // Importante para pipes standalone en Angular 15+
+  standalone: true 
 })
 export class TimeAgoPipe implements PipeTransform {
   transform(value: string | Date): string {

@@ -1,7 +1,13 @@
+/* =================================================================
+   Estilos para el Componente de Juegos (Versión Completa)
+   ================================================================= */
+
+/* --- Contenedor Principal y Títulos --- */
 .juegos-container h2 {
   font-size: 2rem;
 }
 
+/* --- Estilos originales para las tarjetas (se mantienen) --- */
 .game-card {
   border: none;
   border-radius: 1rem;
@@ -29,11 +35,13 @@
   font-size: 0.9rem;
 }
 
+/* --- Estilo base para botones (aplicado a los botones "Jugar") --- */
 .btn {
   border-radius: 0.75rem;
   font-weight: 500;
 }
 
+/* --- Estilos para el botón de chat (se mantienen) --- */
 .chat-float-btn {
   position: fixed;
   bottom: 20px;
@@ -58,29 +66,70 @@
   box-shadow: 0px 6px 12px rgba(0,0,0,0.4);
 }
 
-.resultados-link {
+/* --- ✨ SECCIÓN DE ACCIONES (reemplaza al antiguo .resultados-link) ✨ --- */
+.acciones-container {
   animation: fadeInUp 0.8s ease;
+  
   p {
     font-size: 1rem;
     color: #bbb;
   }
 
+  // Estilo base para los botones de esta sección
   .btn {
-    background: linear-gradient(90deg, #00e5ff, #007bff);
     border: none;
-    color: white;
     padding: 0.75rem 1.5rem;
     border-radius: 1rem;
-    box-shadow: 0 4px 15px rgba(0, 229, 255, 0.3);
+    color: white;
+    font-weight: 600; // Un poco más de peso
     transition: transform 0.2s ease, box-shadow 0.3s ease;
 
     &:hover {
       transform: translateY(-3px);
+    }
+  }
+
+  // Botón de Resultados
+  .btn-resultados {
+    background: linear-gradient(90deg, #00e5ff, #007bff);
+    box-shadow: 0 4px 15px rgba(0, 229, 255, 0.3);
+    &:hover {
       box-shadow: 0 8px 25px rgba(0, 229, 255, 0.5);
+    }
+  }
+
+  // Botón de Encuesta
+  .btn-encuesta {
+    background: linear-gradient(90deg, #8a2be2, #ff69b4);
+    box-shadow: 0 4px 15px rgba(138, 43, 226, 0.3);
+    &:hover {
+      box-shadow: 0 8px 25px rgba(138, 43, 226, 0.5);
+    }
+  }
+
+  // Botón de Admin (activo)
+  .btn-admin {
+    background: linear-gradient(90deg, #ff416c, #ff4b2b);
+    box-shadow: 0 4px 15px rgba(255, 75, 43, 0.4);
+    &:hover {
+      box-shadow: 0 8px 25px rgba(255, 75, 43, 0.6);
+    }
+  }
+
+  // Botón de Admin (deshabilitado)
+  .btn-disabled {
+    background-color: #6c757d; // Un gris de Bootstrap
+    color: #ccc;
+    cursor: not-allowed;
+    pointer-events: none; // Evita que se pueda hacer click
+    box-shadow: none;
+    &:hover {
+      transform: none; // Anula el efecto hover
     }
   }
 }
 
+/* --- Animación de entrada --- */
 @keyframes fadeInUp {
   from {
     opacity: 0;

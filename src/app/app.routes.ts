@@ -11,8 +11,12 @@ import { ResultadosComponent } from './components/resultados/resultados';
 import { ChatComponent } from './components/chat/chat';
 import { JuegosComponent } from './components/juegos/juegos';
 
+import { EncuestaComponent } from './components/encuesta/encuesta';
+import { ResultadosEncuestaComponent } from './components/resultados-encuesta/resultados-encuesta';
+
 // ✅ Importamos los guards
 import { authGuard } from './guards/auth.guard';
+import { adminGuard } from './guards/admin-guard';
 import { noAuthGuard } from './guards/no-auth.guard';
 
 export const routes: Routes = [
@@ -33,6 +37,18 @@ export const routes: Routes = [
   { path: 'adivina-bandera', component: AdivinaBanderaComponent, canActivate: [authGuard] },
   { path: 'resultados', component: ResultadosComponent, canActivate: [authGuard] },
   { path: 'chat', component: ChatComponent, canActivate: [authGuard] },
+
+  { 
+    path: 'encuesta', 
+    component: EncuestaComponent, 
+    canActivate: [authGuard] // Protegida, solo para usuarios logueados
+  },
+
+  { 
+    path: 'resultados-encuesta', 
+    component: ResultadosEncuestaComponent, 
+    canActivate: [authGuard, adminGuard] // Doble protección: logueado Y admin
+  },
 
   { path: '**', redirectTo: 'home' }
 ];

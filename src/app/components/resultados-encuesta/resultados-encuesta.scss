@@ -1,0 +1,37 @@
+// Hacemos que la tabla no tenga fondo para que se vea el degradado del body
+.table {
+  --bs-table-bg: transparent;
+  --bs-table-border-color: var(--color-borde-cristal);
+  --bs-table-hover-bg: var(--color-cristal);
+  border-radius: 0.75rem;
+  overflow: hidden; // Para que las filas respeten el borde redondeado
+}
+
+// Estilo para la cabecera de la tabla
+thead {
+  th {
+    background-color: var(--color-superficie);
+    color: var(--color-acento);
+    font-family: var(--fuente-titulos);
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-bottom: 2px solid var(--color-acento);
+  }
+}
+
+// Estilo para las filas del cuerpo de la tabla
+tbody {
+  tr {
+    td {
+      color: var(--color-texto-secundario);
+      padding: 1rem; // Un poco más de espacio
+    }
+  }
+
+  // Estilo para la primera celda de cada fila (el email)
+  td:first-child {
+    color: var(--color-texto);
+    font-weight: 500;
+  }
+}
