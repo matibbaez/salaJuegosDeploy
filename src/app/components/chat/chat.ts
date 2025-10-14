@@ -62,26 +62,14 @@ export class ChatComponent implements OnInit, OnDestroy {
     const messageToSend = this.text;
     this.text = ''; // Limpiar el input inmediatamente
 
-    // Crear un mensaje temporal para mostrarlo al instante
-    const tempMessage: Message = {
-      id: -1, // Un ID temporal, no se usará
-      user_id: this.userId,
-      username: this.username,
-      message: messageToSend,
-      created_at: new Date().toISOString() // Fecha actual
-    };
-
-    // Añadir el mensaje temporal al array para que aparezca al instante
-    this.messages = [...this.messages, tempMessage];
-    setTimeout(() => this.scrollToBottom(), 50); // Hacer scroll
-
-    // Enviar el mensaje a Supabase
-    await this.chatService.sendMessage(this.userId, this.username, messageToSend);
-
-    // Opcional: Si quieres reemplazar el mensaje temporal con el real (con el ID de Supabase),
-    // podrías añadir lógica en onNewMessage para buscar y actualizar el mensaje con ID -1.
-    // Pero con los cambios en onNewMessage y la rapidez de Supabase, no suele ser necesario
-    // ya que el mensaje real de Supabase debería llegar muy rápido y ser el siguiente en la lista.
+    // 👇 SIMPLEMENTE ENVIAMOS EL MENSAJE Y ESPERAMOS QUE LLEGUE POR REAL-TIME
+    try {
+      await this.chatService.sendMessage(this.userId, this.username, messageToSend);
+    } catch (error) {
+      console.error('Error al enviar el mensaje:', error);
+      // Opcional: podrías volver a poner el texto en el input si falla
+      this.text = messageToSend; 
+    }
   }
 
   isMine(m: Message) {
