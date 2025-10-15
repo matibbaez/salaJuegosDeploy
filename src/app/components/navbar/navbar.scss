@@ -21,6 +21,19 @@
   }
 }
 
+/* --- Estilo para la Etiqueta de Admin --- */
+.admin-badge {
+  background-color: var(--color-acento);
+  color: white;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 0.7rem; // Bien chiquito
+  font-weight: 600;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+  text-shadow: none; // Le quitamos la sombra de texto que pueda heredar
+}
+
 .nav-link {
   color: var(--color-texto-secundario);
   font-family: var(--fuente-titulos);
