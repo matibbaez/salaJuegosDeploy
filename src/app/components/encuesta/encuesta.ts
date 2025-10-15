@@ -1,15 +1,14 @@
-// src/app/componentes/encuesta/encuesta.component.ts
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { SupabaseService } from '../../services/supabase.service';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-encuesta',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule],
   templateUrl: './encuesta.html',
   styleUrls: ['./encuesta.scss']
 })
@@ -18,6 +17,8 @@ export class EncuestaComponent implements OnInit {
   enviando = false;
   mensajeExito = '';
   mensajeError = '';
+  yaEnviado = signal<boolean>(false);
+  cargandoEstado = signal<boolean>(true); // 👈 NUEVA SEÑAL PARA LA PANTALLA DE CARGA
 
   constructor(
     private fb: FormBuilder,
@@ -27,17 +28,29 @@ export class EncuestaComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.verificarEstadoEncuesta(); // Verificamos el estado al iniciar
+
+    // El formulario se puede inicializar aquí sin problemas
     this.formularioEncuesta = this.fb.group({
-      nombreCompleto: ['', Validators.required],
+      nombreCompleto: ['', [Validators.required, Validators.pattern(/^(?!\s*$)[a-zA-Z\s'-]+$/)]],
       edad: ['', [Validators.required, Validators.min(18), Validators.max(99)]],
       telefono: ['', [Validators.required, Validators.pattern('^[0-9]{1,10}$')]],
       satisfaccion: [null, Validators.required],
       juegoFavorito: ['ahorcado', Validators.required],
-      comentarios: ['', [Validators.required, Validators.minLength(10)]]
+      comentarios: ['', [Validators.required, Validators.minLength(10), Validators.pattern(/^(?!.*(.)\1{4,}).*$/)]]
     });
   }
 
-  // Getter para un acceso más fácil a los controles en la plantilla
+  async verificarEstadoEncuesta() {
+    this.cargandoEstado.set(true); // Ponemos en modo "cargando"
+    const usuario = this.servicioAuth.getCurrentUser();
+    if (usuario) {
+      const haEnviado = await this.servicioSupabase.verificarEncuestaUsuario(usuario.id);
+      this.yaEnviado.set(haEnviado);
+    }
+    this.cargandoEstado.set(false); // Terminamos de cargar
+  }
+
   get form() { return this.formularioEncuesta.controls; }
 
   async enviarFormulario() {
@@ -48,11 +61,10 @@ export class EncuestaComponent implements OnInit {
 
     this.enviando = true;
     this.mensajeError = '';
-    this.mensajeExito = '';
-
+    
     try {
       const usuario = this.servicioAuth.getCurrentUser();
-      if (!usuario) throw new Error('Debes iniciar sesión para enviar la encuesta.');
+      if (!usuario) throw new Error('Debes iniciar sesión.');
 
       const valores = this.formularioEncuesta.value;
       const datosEncuesta = {
@@ -67,12 +79,8 @@ export class EncuestaComponent implements OnInit {
       };
 
       await this.servicioSupabase.guardarResultadoEncuesta(datosEncuesta);
-
-      this.mensajeExito = '¡Encuesta enviada con éxito! Gracias por tu opinión.';
-      this.formularioEncuesta.reset();
+      this.yaEnviado.set(true);
       
-      setTimeout(() => this.enrutador.navigate(['/juegos']), 2000);
-
     } catch (error: any) {
       this.mensajeError = error.message || 'Ocurrió un error al enviar la encuesta.';
     } finally {

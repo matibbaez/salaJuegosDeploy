@@ -1,37 +1,70 @@
-// Hacemos que la tabla no tenga fondo para que se vea el degradado del body
 .table {
-  --bs-table-bg: transparent;
-  --bs-table-border-color: var(--color-borde-cristal);
-  --bs-table-hover-bg: var(--color-cristal);
+  --bs-table-bg: transparent; /* Sin fondo para ver el degradado del body */
+  --bs-table-border-color: var(--color-borde-cristal); /* Borde sutil */
+  border: 1px solid var(--bs-table-border-color); /* Aplicar el borde */
   border-radius: 0.75rem;
-  overflow: hidden; // Para que las filas respeten el borde redondeado
+  overflow: hidden; /* Para que las filas respeten el borde redondeado */
+  backdrop-filter: blur(5px); /* Efecto de cristal para toda la tabla */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* Sombra suave para levantar la tabla */
 }
 
-// Estilo para la cabecera de la tabla
+/* Estilo para la cabecera de la tabla */
 thead {
   th {
-    background-color: var(--color-superficie);
-    color: var(--color-acento);
+    background-color: var(--color-superficie); /* Fondo oscuro semitransparente */
+    color: var(--color-acento); /* Color acento para el texto */
     font-family: var(--fuente-titulos);
-    font-weight: 600;
-    letter-spacing: 1px;
+    font-weight: 700; /* Más énfasis */
+    letter-spacing: 0.5px;
     text-transform: uppercase;
-    border-bottom: 2px solid var(--color-acento);
+    border-bottom: 2px solid var(--color-acento); /* Borde inferior acentuado */
+    padding: 1rem 1.5rem; /* Más padding */
+    text-align: left;
+    white-space: nowrap; /* Evita que el texto se rompa en varias líneas */
   }
 }
 
-// Estilo para las filas del cuerpo de la tabla
+/* Estilo para las filas del cuerpo de la tabla */
 tbody {
   tr {
+    transition: background-color 0.3s ease; /* Transición suave para el hover */
+
+    &:hover {
+      background-color: var(--color-cristal); /* Fondo cristalino al pasar el ratón */
+    }
+
     td {
       color: var(--color-texto-secundario);
-      padding: 1rem; // Un poco más de espacio
+      padding: 1rem 1.5rem; /* Padding consistente */
+      border-top: 1px solid var(--bs-table-border-color); /* Borde entre filas */
+      font-family: var(--fuente-cuerpo);
     }
   }
 
-  // Estilo para la primera celda de cada fila (el email)
+  /* Estilo para la primera celda de cada fila (el email) */
   td:first-child {
     color: var(--color-texto);
-    font-weight: 500;
+    font-weight: 600; /* Un poco más de peso */
   }
+}
+
+/* Estilo para el título del componente */
+.text-gradient {
+    background: linear-gradient(to right, #00c6ff, #0072ff); /* Gradiente más vibrante */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 2.5rem; /* Un poco más grande */
+}
+
+/* Ajustes para el spinner si lo usas */
+.spinner-border {
+  color: var(--color-acento);
+}
+
+/* Estilo para la alerta de no encuestas */
+.alert-info {
+  background-color: rgba(0, 188, 212, 0.1); /* Fondo translúcido con color acento */
+  color: var(--color-acento);
+  border-color: var(--color-borde-cristal);
+  backdrop-filter: blur(3px);
 }

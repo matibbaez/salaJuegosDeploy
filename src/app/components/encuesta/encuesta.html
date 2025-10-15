@@ -1,79 +1,94 @@
 <div class="container survey-container my-5">
-  <div class="survey-card p-4 mx-auto" style="max-width: 600px;">
-    <h2 class="text-center fw-bold text-gradient mb-3">📝 Encuesta de Satisfacción</h2>
-    <p class="text-center text-muted mb-4">Tu opinión nos ayuda a mejorar la Sala de Juegos.</p>
+  <div class="survey-card p-4 mx-auto"> 
+    <h2 class="text-center gradient-text mb-3">📝 Encuesta de Satisfacción</h2>
 
-    <form [formGroup]="formularioEncuesta" (ngSubmit)="enviarFormulario()">
+    <div *ngIf="cargandoEstado()" class="loading-container">
+      <div class="spinner"></div>
+      <span>Verificando encuesta...</span>
+    </div>
+
+    <ng-container *ngIf="!cargandoEstado()">
+
+      <div *ngIf="yaEnviado()" class="text-center p-4">
+        <h4 class="text-success">¡Gracias por tu opinión!</h4>
+        <p class="text-muted">Ya registramos tu encuesta. Tu feedback nos ayuda a mejorar.</p>
+        <a routerLink="/juegos" class="btn btn-primary mt-3">Volver a los Juegos</a>
+      </div>
       
-      <div class="mb-3">
-        <label for="nombreCompleto" class="form-label">Nombre y Apellido</label>
-        <input type="text" id="nombreCompleto" formControlName="nombreCompleto" class="form-control"
-               [ngClass]="{ 'is-invalid': form['nombreCompleto'].touched && form['nombreCompleto'].invalid }">
-        <div *ngIf="form['nombreCompleto'].touched && form['nombreCompleto'].invalid" class="invalid-feedback">
-          <div *ngIf="form['nombreCompleto'].errors?.['required']">El nombre es requerido.</div>
+      <form *ngIf="!yaEnviado()" [formGroup]="formularioEncuesta" (ngSubmit)="enviarFormulario()">
+        
+        <div class="mb-3">
+          <label for="nombreCompleto" class="form-label">Nombre y Apellido</label>
+          <input type="text" id="nombreCompleto" formControlName="nombreCompleto" class="form-control"
+                 [ngClass]="{ 'is-invalid': form['nombreCompleto'].touched && form['nombreCompleto'].invalid }">
+          <div *ngIf="form['nombreCompleto'].touched && form['nombreCompleto'].invalid" class="invalid-feedback">
+            <div *ngIf="form['nombreCompleto'].errors?.['required']">El nombre es requerido.</div>
+            <div *ngIf="form['nombreCompleto'].errors?.['pattern']">El nombre no es válido (solo letras, no puede ser solo espacios).</div>
+          </div>
         </div>
-      </div>
 
-      <div class="mb-3">
-        <label for="edad" class="form-label">Edad</label>
-        <input type="number" id="edad" formControlName="edad" class="form-control"
-               [ngClass]="{ 'is-invalid': form['edad'].touched && form['edad'].invalid }">
-        <div *ngIf="form['edad'].touched && form['edad'].invalid" class="invalid-feedback">
-          <div *ngIf="form['edad'].errors?.['required']">La edad es requerida.</div>
-          <div *ngIf="form['edad'].errors?.['min'] || form['edad'].errors?.['max']">Debes tener entre 18 y 99 años.</div>
+        <div class="mb-3">
+          <label for="edad" class="form-label">Edad</label>
+          <input type="number" id="edad" formControlName="edad" class="form-control"
+                 [ngClass]="{ 'is-invalid': form['edad'].touched && form['edad'].invalid }">
+          <div *ngIf="form['edad'].touched && form['edad'].invalid" class="invalid-feedback">
+            <div *ngIf="form['edad'].errors?.['required']">La edad es requerida.</div>
+            <div *ngIf="form['edad'].errors?.['min'] || form['edad'].errors?.['max']">Debes tener entre 18 y 99 años.</div>
+          </div>
         </div>
-      </div>
 
-      <div class="mb-3">
-        <label for="telefono" class="form-label">Teléfono (solo números, máx. 10)</label>
-        <input type="text" id="telefono" formControlName="telefono" class="form-control"
-               [ngClass]="{ 'is-invalid': form['telefono'].touched && form['telefono'].invalid }">
-        <div *ngIf="form['telefono'].touched && form['telefono'].invalid" class="invalid-feedback">
-          <div *ngIf="form['telefono'].errors?.['required']">El teléfono es requerido.</div>
-          <div *ngIf="form['telefono'].errors?.['pattern']">Debe contener solo números y máximo 10 dígitos.</div>
+        <div class="mb-3">
+          <label for="telefono" class="form-label">Teléfono (solo números, máx. 10)</label>
+          <input type="text" id="telefono" formControlName="telefono" class="form-control"
+                 [ngClass]="{ 'is-invalid': form['telefono'].touched && form['telefono'].invalid }">
+          <div *ngIf="form['telefono'].touched && form['telefono'].invalid" class="invalid-feedback">
+            <div *ngIf="form['telefono'].errors?.['required']">El teléfono es requerido.</div>
+            <div *ngIf="form['telefono'].errors?.['pattern']">Debe contener solo números y máximo 10 dígitos.</div>
+          </div>
         </div>
-      </div>
 
-      <hr class="my-4">
+        <hr class="my-4">
 
-      <div class="mb-3">
-        <label class="form-label d-block">¿Qué tan satisfecho estás con los juegos?</label>
-        <div class="form-check form-check-inline" *ngFor="let i of [1,2,3,4,5]">
-          <input class="form-check-input" type="radio" [id]="'satisfaccion' + i" [value]="i" formControlName="satisfaccion">
-          <label class="form-check-label" [for]="'satisfaccion' + i">{{ i }}</label>
+        <div class="mb-3">
+          <label class="form-label d-block">¿Qué tan satisfecho estás con los juegos?</label>
+          <div class="form-check form-check-inline" *ngFor="let i of [1,2,3,4,5]">
+            <input class="form-check-input" type="radio" [id]="'satisfaccion' + i" [value]="i" formControlName="satisfaccion">
+            <label class="form-check-label" [for]="'satisfaccion' + i">{{ i }}</label>
+          </div>
+          <div *ngIf="form['satisfaccion'].touched && form['satisfaccion'].invalid" class="d-block invalid-feedback">
+            Por favor, elige una puntuación.
+          </div>
         </div>
-        <div *ngIf="form['satisfaccion'].touched && form['satisfaccion'].invalid" class="d-block invalid-feedback">
-          Por favor, elige una puntuación.
+
+        <div class="mb-3">
+          <label for="juegoFavorito" class="form-label">¿Cuál es tu juego favorito?</label>
+          <select id="juegoFavorito" formControlName="juegoFavorito" class="form-select" [ngClass]="{ 'is-invalid': form['juegoFavorito'].touched && form['juegoFavorito'].invalid }">
+            <option value="ahorcado">Ahorcado</option>
+            <option value="mayorMenor">Mayor o Menor</option>
+            <option value="preguntados">Preguntados</option>
+            <option value="adivinaBandera">Adivina la Bandera</option>
+          </select>
         </div>
-      </div>
 
-      <div class="mb-3">
-        <label for="juegoFavorito" class="form-label">¿Cuál es tu juego favorito?</label>
-        <select id="juegoFavorito" formControlName="juegoFavorito" class="form-select" [ngClass]="{ 'is-invalid': form['juegoFavorito'].touched && form['juegoFavorito'].invalid }">
-          <option value="ahorcado">Ahorcado</option>
-          <option value="mayorMenor">Mayor o Menor</option>
-          <option value="preguntados">Preguntados</option>
-          <option value="adivinaBandera">Adivina la Bandera</option>
-        </select>
-      </div>
-
-      <div class="mb-4">
-        <label for="comentarios" class="form-label">¿Qué otro juego te gustaría ver? (Mín. 10 caracteres)</label>
-        <textarea id="comentarios" formControlName="comentarios" class="form-control" rows="3" 
-                  [ngClass]="{ 'is-invalid': form['comentarios'].touched && form['comentarios'].invalid }"></textarea>
-        <div *ngIf="form['comentarios'].touched && form['comentarios'].invalid" class="invalid-feedback">
-          <div *ngIf="form['comentarios'].errors?.['required']">Tu opinión es importante.</div>
-          <div *ngIf="form['comentarios'].errors?.['minlength']">Por favor, danos un poco más de detalle.</div>
+        <div class="mb-4">
+          <label for="comentarios" class="form-label">¿Qué otro juego te gustaría ver? (Mín. 10 caracteres)</label>
+          <textarea id="comentarios" formControlName="comentarios" class="form-control" rows="3" 
+                    [ngClass]="{ 'is-invalid': form['comentarios'].touched && form['comentarios'].invalid }"></textarea>
+          <div *ngIf="form['comentarios'].touched && form['comentarios'].invalid" class="invalid-feedback">
+            <div *ngIf="form['comentarios'].errors?.['required']">Tu opinión es importante.</div>
+            <div *ngIf="form['comentarios'].errors?.['minlength']">Por favor, danos un poco más de detalle.</div>
+            <div *ngIf="form['comentarios'].errors?.['pattern']">El texto parece inválido (ej: caracteres repetidos).</div>
+          </div>
         </div>
-      </div>
 
-      <div *ngIf="mensajeExito" class="alert alert-success">{{ mensajeExito }}</div>
-      <div *ngIf="mensajeError" class="alert alert-danger">{{ mensajeError }}</div>
+        <div *ngIf="mensajeError" class="alert alert-danger">{{ mensajeError }}</div>
 
-      <button type="submit" class="btn btn-gradient w-100" [disabled]="enviando">
-        <span *ngIf="!enviando">Enviar Encuesta</span>
-        <span *ngIf="enviando" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-      </button>
-    </form>
+        <button type="submit" class="btn btn-gradient w-100" [disabled]="enviando || formularioEncuesta.invalid">
+          <span *ngIf="!enviando">Enviar Encuesta</span>
+          <span *ngIf="enviando" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        </button>
+      </form>
+    </ng-container>
+
   </div>
 </div>

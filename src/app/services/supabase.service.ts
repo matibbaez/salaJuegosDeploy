@@ -119,4 +119,21 @@ export class SupabaseService {
     if (error) throw error;
     return data;
   }
+
+  async verificarEncuestaUsuario(idUsuario: string) {
+    // Usamos { count: 'exact', head: true } para solo contar las filas sin traer los datos.
+    // Es súper eficiente.
+    const { count, error } = await this.supabase
+      .from('encuestas')
+      .select('id', { count: 'exact', head: true })
+      .eq('id_usuario', idUsuario);
+
+    if (error) {
+      console.error('Error al verificar encuesta:', error);
+      return false;
+    }
+
+    // Si el conteo es mayor a 0, significa que el usuario ya respondió.
+    return (count ?? 0) > 0;
+  }
 }
