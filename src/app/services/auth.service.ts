@@ -15,7 +15,7 @@ export class AuthService {
   constructor(private router: Router) {
     this.supabase = createClient(environment.supabaseUrl, environment.supabaseAnonKey);
     this.checkSession();
-    this.listenForAuthChanges(); // 🟢 NUEVO
+    this.listenForAuthChanges(); 
   }
 
   private async checkSession() {
@@ -23,14 +23,14 @@ export class AuthService {
     this.userSubject.next(data.session?.user ?? null);
   }
 
-  // 🟢 Escuchar cambios globales de sesión
+  // escuchar cambios globales de sesión
   private listenForAuthChanges() {
     this.supabase.auth.onAuthStateChange((event, session) => {
       if (event === 'SIGNED_IN' && session?.user) {
         this.userSubject.next(session.user);
       } else if (event === 'SIGNED_OUT') {
         this.userSubject.next(null);
-        this.router.navigate(['/login']); // 🚪 Redirige al login automático
+        this.router.navigate(['/login']); // redirige al login automático
       }
     });
   }

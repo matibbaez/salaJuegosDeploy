@@ -32,15 +32,13 @@ export class ChatComponent implements OnInit, OnDestroy {
 
     // cargar últimos mensajes
     this.messages = await this.chatService.fetchRecent();
-    setTimeout(() => this.scrollToBottom(), 100); // Asegurarse de hacer scroll al cargar los mensajes iniciales
+    setTimeout(() => this.scrollToBottom(), 100); 
 
     // suscribirse a nuevos mensajes en tiempo real
     this.unsubscribe = this.chatService.onNewMessage((msg) => {
-      // Solo añadir si no es un mensaje que ya hemos añadido localmente al enviar
-      // Esto es una medida de precaución, el orden de llegada en realtime podría variar
       if (!this.messages.find(m => m.id === msg.id && m.created_at === msg.created_at)) {
         this.messages = [...this.messages, msg];
-        setTimeout(() => this.scrollToBottom(), 50); // autoscroll al último mensaje
+        setTimeout(() => this.scrollToBottom(), 50); 
       }
     });
   }
@@ -62,12 +60,10 @@ export class ChatComponent implements OnInit, OnDestroy {
     const messageToSend = this.text;
     this.text = ''; // Limpiar el input inmediatamente
 
-    // 👇 SIMPLEMENTE ENVIAMOS EL MENSAJE Y ESPERAMOS QUE LLEGUE POR REAL-TIME
     try {
       await this.chatService.sendMessage(this.userId, this.username, messageToSend);
     } catch (error) {
       console.error('Error al enviar el mensaje:', error);
-      // Opcional: podrías volver a poner el texto en el input si falla
       this.text = messageToSend; 
     }
   }

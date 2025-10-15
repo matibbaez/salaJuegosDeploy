@@ -37,7 +37,6 @@ export class AdivinaBanderaComponent implements OnInit {
 
   banderaActual = signal<Bandera | null>(null);
   entradaAdivinanza: string = '';
-  // `mensaje` ahora puede ser un objeto con el texto y la clase CSS
   mensaje = signal<{ texto: string; clase: string } | null>(null);
   puntuacion = signal(0);
   aciertosCorrectos = signal(0);
@@ -133,7 +132,7 @@ export class AdivinaBanderaComponent implements OnInit {
     this.puntuacion.update(s => Math.max(0, s - 20));
     this.mensaje.set({
       texto: `Bandera saltada. La respuesta era: ${this.banderaActual()!.pais.toUpperCase()}. ⏭️`,
-      clase: 'alert-skipped' // Usar la misma nueva clase
+      clase: 'alert-skipped' 
     });
     this.banderasJugadasContador++;
 

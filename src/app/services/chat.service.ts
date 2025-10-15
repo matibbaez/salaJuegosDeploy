@@ -13,12 +13,12 @@ export interface Message {
 export class ChatService {
   constructor(private supabaseService: SupabaseService) {}
 
-  // obtener mensajes (últimos n) - ORDENADO ASCENDENTE para que los viejos estén arriba
+  // obtener mensajes - ORDENADO ASCENDENTE 
   async fetchRecent(limit = 50): Promise<Message[]> {
     const { data, error } = await this.supabaseService['supabase']
       .from('messages')
       .select('*')
-      .order('created_at', { ascending: true }) // Cambiado a true
+      .order('created_at', { ascending: true }) 
       .limit(limit);
 
     if (error) throw error;

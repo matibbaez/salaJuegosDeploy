@@ -10,8 +10,6 @@ export class AutoscrollDirective implements OnChanges {
   constructor(private el: ElementRef) {}
 
   ngOnChanges() {
-    // Usamos setTimeout para asegurar que el DOM se haya actualizado completamente
-    // y que el último elemento esté presente antes de intentar hacer scroll.
     setTimeout(() => {
       this.scrollToBottomSmooth();
     }, 0); 
@@ -25,12 +23,8 @@ export class AutoscrollDirective implements OnChanges {
         const lastChild = parentElement.lastElementChild;
 
         if (lastChild) {
-          // Usamos scrollIntoView con 'smooth' para una animación nativa.
-          // 'end' alinea la parte inferior del elemento con la parte inferior del contenedor.
           lastChild.scrollIntoView({ behavior: 'smooth', block: 'end' });
-          // console.log('Scroll animado realizado a:', lastChild); // Opcional para depuración
         } else {
-          // Si no hay hijos (chat vacío), al menos intentamos un scroll al final del propio contenedor
           parentElement.scrollTop = parentElement.scrollHeight;
         }
       }

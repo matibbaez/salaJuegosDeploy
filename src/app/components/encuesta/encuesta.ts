@@ -18,7 +18,7 @@ export class EncuestaComponent implements OnInit {
   mensajeExito = '';
   mensajeError = '';
   yaEnviado = signal<boolean>(false);
-  cargandoEstado = signal<boolean>(true); // 👈 NUEVA SEÑAL PARA LA PANTALLA DE CARGA
+  cargandoEstado = signal<boolean>(true); 
 
   constructor(
     private fb: FormBuilder,
@@ -28,9 +28,9 @@ export class EncuestaComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.verificarEstadoEncuesta(); // Verificamos el estado al iniciar
+    this.verificarEstadoEncuesta(); 
 
-    // El formulario se puede inicializar aquí sin problemas
+    // El formulario se inicializa aquí 
     this.formularioEncuesta = this.fb.group({
       nombreCompleto: ['', [Validators.required, Validators.pattern(/^(?!\s*$)[a-zA-Z\s'-]+$/)]],
       edad: ['', [Validators.required, Validators.min(18), Validators.max(99)]],
@@ -42,13 +42,13 @@ export class EncuestaComponent implements OnInit {
   }
 
   async verificarEstadoEncuesta() {
-    this.cargandoEstado.set(true); // Ponemos en modo "cargando"
+    this.cargandoEstado.set(true); 
     const usuario = this.servicioAuth.getCurrentUser();
     if (usuario) {
       const haEnviado = await this.servicioSupabase.verificarEncuestaUsuario(usuario.id);
       this.yaEnviado.set(haEnviado);
     }
-    this.cargandoEstado.set(false); // Terminamos de cargar
+    this.cargandoEstado.set(false); 
   }
 
   get form() { return this.formularioEncuesta.controls; }

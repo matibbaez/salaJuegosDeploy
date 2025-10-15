@@ -1,4 +1,3 @@
-// src/app/componentes/resultados-encuesta/resultados-encuesta.component.ts
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { SupabaseService } from '../../services/supabase.service';

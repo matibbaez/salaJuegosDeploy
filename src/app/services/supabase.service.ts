@@ -94,7 +94,7 @@ export class SupabaseService {
   async obtenerPerfilUsuario(idUsuario: string) {
     const { data, error } = await this.supabase
       .from('profiles')
-      .select('es_admin') // Seleccionamos la columna que creamos
+      .select('es_admin') 
       .eq('id', idUsuario)
       .single(); 
 
@@ -104,7 +104,6 @@ export class SupabaseService {
 
   // ========= ENCUESTA =========
   async guardarResultadoEncuesta(resultado: any) {
-    // El nombre de la tabla debe coincidir con el SQL que ejecutaste
     const { data, error } = await this.supabase.from('encuestas').insert([resultado]);
     if (error) throw error;
     return data;
@@ -121,8 +120,6 @@ export class SupabaseService {
   }
 
   async verificarEncuestaUsuario(idUsuario: string) {
-    // Usamos { count: 'exact', head: true } para solo contar las filas sin traer los datos.
-    // Es súper eficiente.
     const { count, error } = await this.supabase
       .from('encuestas')
       .select('id', { count: 'exact', head: true })
@@ -133,7 +130,6 @@ export class SupabaseService {
       return false;
     }
 
-    // Si el conteo es mayor a 0, significa que el usuario ya respondió.
     return (count ?? 0) > 0;
   }
 }

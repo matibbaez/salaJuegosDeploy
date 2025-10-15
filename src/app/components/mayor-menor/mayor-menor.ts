@@ -1,4 +1,4 @@
-import { Component, signal, OnInit } from '@angular/core'; // 👈 Se añade OnInit
+import { Component, signal, OnInit } from '@angular/core'; 
 import { CommonModule } from '@angular/common';
 import { GamesService } from '../../services/games.service';
 import { AuthService } from '../../services/auth.service';
@@ -12,7 +12,7 @@ type Card = { suit: string; value: number; label: string };
   templateUrl: './mayor-menor.html',
   styleUrls: ['./mayor-menor.scss']
 })
-export class MayorMenorComponent implements OnInit { // 👈 Se implementa OnInit
+export class MayorMenorComponent implements OnInit { 
   deck: Card[] = [];
   current?: Card;
   next?: Card;
@@ -25,11 +25,10 @@ export class MayorMenorComponent implements OnInit { // 👈 Se implementa OnIni
 
   constructor(private games: GamesService, private auth: AuthService) {}
 
-  // Toda la lógica inicial la pasamos al ngOnInit
   ngOnInit(): void {
     this.resetDeck();
     this.draw();
-    this.triggerCardAnimation(); // 👈 LLAMADA FALTANTE: para animar la primera carta al cargar
+    this.triggerCardAnimation(); 
   }
 
   resetDeck() {
@@ -41,6 +40,7 @@ export class MayorMenorComponent implements OnInit { // 👈 Se implementa OnIni
         this.deck.push({ suit: s, value: v, label });
       }
     }
+    
     // mezclar
     for (let i = this.deck.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -56,16 +56,17 @@ export class MayorMenorComponent implements OnInit { // 👈 Se implementa OnIni
   }
 
   draw() {
-    if (this.deck.length < 2) { // Asegurarse de que haya al menos 2 cartas para current y next
+    if (this.deck.length < 2) { // minimo 2 cartas para current y next
       this.finished.set(true); 
-      this.finishGame(); // Llamar a finishGame si se acaban las cartas
+      this.finishGame(); // finishGame si no hay mas cartas
       return; 
     }
-    // Si es la primera vez, sacamos las dos primeras cartas
+
+    // si es la primera vez, sacamos las dos primeras cartas
     if (!this.current) {
         this.current = this.deck.pop();
         this.next = this.deck.pop();
-    } else { // Si no, la 'siguiente' se vuelve la 'actual' y sacamos una nueva
+    } else { // si no, la 'siguiente' se vuelve la 'actual' y sacamos una nueva
         this.current = this.next;
         this.next = this.deck.pop();
     }
@@ -81,7 +82,7 @@ export class MayorMenorComponent implements OnInit { // 👈 Se implementa OnIni
 
     // avanzar a la siguiente carta
     this.draw();
-    this.triggerCardAnimation(); // 👈 LLAMADA FALTANTE: para animar en cada ronda
+    this.triggerCardAnimation(); 
 
     if (this.rounds() >= this.maxRounds) {
       this.finished.set(true);
@@ -96,7 +97,7 @@ export class MayorMenorComponent implements OnInit { // 👈 Se implementa OnIni
     try {
       await this.games.saveHigherLowerResult({
         user_id: user?.id,
-        username: user?.email, // 👈 Código más limpio
+        username: user?.email, 
         correct_count: this.correct(),
         total_rounds: this.rounds()
       });
@@ -111,6 +112,6 @@ export class MayorMenorComponent implements OnInit { // 👈 Se implementa OnIni
     this.finished.set(false);
     this.resetDeck();
     this.draw();
-    this.triggerCardAnimation(); // Ya tenías esta, ¡perfecto!
+    this.triggerCardAnimation(); 
   }
 }

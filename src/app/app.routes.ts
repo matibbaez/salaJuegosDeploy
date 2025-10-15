@@ -14,7 +14,7 @@ import { JuegosComponent } from './components/juegos/juegos';
 import { EncuestaComponent } from './components/encuesta/encuesta';
 import { ResultadosEncuestaComponent } from './components/resultados-encuesta/resultados-encuesta';
 
-// ✅ Importamos los guards
+// importamos los guards
 import { authGuard } from './guards/auth.guard';
 import { adminGuard } from './guards/admin-guard';
 import { noAuthGuard } from './guards/no-auth.guard';
@@ -23,13 +23,13 @@ export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent, data: { animation: 'homePage' } },
 
-  // 👇 Solo si NO está logueado
+  // si NO está logueado
   { path: 'login', component: LoginComponent, canActivate: [noAuthGuard] },
   { path: 'registro', component: RegistroComponent, canActivate: [noAuthGuard] },
 
   { path: 'quien-soy', component: QuienSoyComponent, data: { animation: 'quienSoyPage' } },
 
-  // 👇 Solo si está logueado
+  // si está logueado
   { path: 'juegos', component: JuegosComponent, canActivate: [authGuard], data: { animation: 'juegosPage' } },
   { path: 'ahorcado', component: AhorcadoComponent, canActivate: [authGuard] },
   { path: 'mayor-menor', component: MayorMenorComponent, canActivate: [authGuard] },
@@ -41,13 +41,13 @@ export const routes: Routes = [
   { 
     path: 'encuesta', 
     component: EncuestaComponent, 
-    canActivate: [authGuard] // Protegida, solo para usuarios logueados
+    canActivate: [authGuard] 
   },
 
   { 
     path: 'resultados-encuesta', 
     component: ResultadosEncuestaComponent, 
-    canActivate: [authGuard, adminGuard] // Doble protección: logueado Y admin
+    canActivate: [authGuard, adminGuard] 
   },
 
   { path: '**', redirectTo: 'home' }

@@ -11,30 +11,26 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./ahorcado.scss']
 })
 export class AhorcadoComponent {
-  // Lista de palabras posibles
   private palabras = ['angular', 'supabase', 'memoria', 'juego', 'prueba', 'componente'];
 
-  // Estado del juego
+  // estado del juego
   palabra = this.palabras[Math.floor(Math.random() * this.palabras.length)];
-  reveladas = signal(new Array(this.palabra.length).fill(false)); // letras reveladas
-  letrasIntentadas = signal(new Set<string>()); // letras que ya probó
-  errores = signal(0); // cantidad de errores
-  maxErrores = 6; // límite de errores
+  reveladas = signal(new Array(this.palabra.length).fill(false)); 
+  letrasIntentadas = signal(new Set<string>()); 
+  errores = signal(0); 
+  maxErrores = 6; 
   tiempoInicio = Date.now();
   terminado = signal(false);
   gano = signal(false);
 
-  // Alfabeto (incluye la ñ)
   alfabeto = 'abcdefghijklmnñopqrstuvwxyz'.split('');
 
   constructor(private juegos: GamesService, private auth: AuthService) {}
 
-  // Saber si un botón de letra debe estar deshabilitado
   letraDeshabilitada(letra: string) {
     return this.letrasIntentadas().has(letra) || this.terminado();
   }
 
-  // Cuando el usuario elige una letra
   elegir(letra: string) {
     if (this.terminado()) return;
 
@@ -46,23 +42,22 @@ export class AhorcadoComponent {
     }
 
     if (indices.length === 0) {
-      // Falló la letra
+      // falló la letra
       this.errores.update(e => e + 1);
       if (this.errores() >= this.maxErrores) {
         this.finalizar(false);
       }
     } else {
-      // Acertó la letra → revelar posiciones
+      // acertó la letra → revelar posiciones
       const arr = [...this.reveladas()];
       indices.forEach(i => arr[i] = true);
       this.reveladas.set(arr);
 
-      // Si reveló todas, gana
+      // si reveló todas, gana
       if (arr.every(Boolean)) this.finalizar(true);
     }
   }
 
-  // Finalizar la partida
   async finalizar(ganoPartida: boolean) {
     this.terminado.set(true);
     this.gano.set(ganoPartida);

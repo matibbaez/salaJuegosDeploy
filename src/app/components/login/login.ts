@@ -21,7 +21,7 @@ export class LoginComponent {
   async login() {
     try {
       await this.authService.signIn(this.email, this.password);
-      this.router.navigate(['/home']); // ir al Home al loguearse
+      this.router.navigate(['/home']); 
     } catch (error: any) {
       this.errorMsg = error.message || 'Error al iniciar sesión';
     }

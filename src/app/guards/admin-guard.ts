@@ -18,14 +18,14 @@ export const adminGuard: CanActivateFn = async () => {
   try {
     const perfil = await servicioSupabase.obtenerPerfilUsuario(usuario.id);
     if (perfil && perfil.es_admin) {
-      return true; // ✅ Es admin, puede pasar
+      return true; // ✅ admin, puede pasar
     } else {
-      enrutador.navigate(['/juegos']); // No es admin, lo mandamos a los juegos
+      enrutador.navigate(['/juegos']); //si no, lo mandamos a los juegos
       return false;
     }
   } catch (error) {
     console.error('Error al verificar el estado de administrador:', error);
-    enrutador.navigate(['/juegos']); // En caso de error, no dar acceso
+    enrutador.navigate(['/juegos']); 
     return false;
   }
 };

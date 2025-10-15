@@ -30,10 +30,10 @@ export class PreguntadosComponent implements OnInit {
   finalizado = signal(false);
   loading = signal(false);
 
-  // Nueva propiedad para almacenar el historial de preguntas y respuestas
+  // almacenanamos el historial de preguntas y respuestas
   historialRespuestas: QuestionHistory[] = [];
   
-  // Propiedad para controlar el feedback visual en el template
+  // controlar el feedback visual en el template
   feedbackClaseRespuesta: { [key: number]: string } = {};
 
   constructor(
@@ -64,7 +64,7 @@ export class PreguntadosComponent implements OnInit {
 
   async cargarPreguntas(tema: string) {
     this.loading.set(true);
-    // Limpiar historial al cargar nuevas preguntas
+    // limpiar historial al cargar nuevas preguntas
     this.historialRespuestas = []; 
     this.quizService.getQuestionsByTopic(tema).subscribe(
       (questions) => {
@@ -88,7 +88,7 @@ export class PreguntadosComponent implements OnInit {
       this.correctas.update(c => c + 1);
     }
 
-    // Almacenar en el historial antes de pasar a la siguiente pregunta
+    // almacenamos en el historial antes de pasar a la siguiente pregunta
     this.historialRespuestas.push({
       question: actual.question,
       options: actual.options,
@@ -97,15 +97,14 @@ export class PreguntadosComponent implements OnInit {
       isCorrect: esCorrecta
     });
 
-    // 🔹 Opcional: Mostrar feedback visual inmediato en la UI antes de avanzar
     this.feedbackClaseRespuesta[index] = esCorrecta ? 'correct-answer-feedback' : 'wrong-answer-feedback';
     if (!esCorrecta) {
-        this.feedbackClaseRespuesta[actual.correctIndex] = 'correct-answer-highlight'; // Resaltar la correcta si falló
+        this.feedbackClaseRespuesta[actual.correctIndex] = 'correct-answer-highlight'; // resaltamos la correcta si falló
     }
 
 
-    setTimeout(() => { // Pequeño retraso para que el usuario vea el feedback
-      this.feedbackClaseRespuesta = {}; // Limpiar feedback
+    setTimeout(() => { 
+      this.feedbackClaseRespuesta = {}; 
 
       if (this.indice() + 1 >= this.preguntas.length) {
         this.finalizado.set(true);
@@ -113,7 +112,7 @@ export class PreguntadosComponent implements OnInit {
       } else {
         this.indice.update(i => i + 1);
       }
-    }, 800); // 800ms de pausa
+    }, 800); 
   }
 
   async guardarResultado() {
@@ -137,8 +136,8 @@ export class PreguntadosComponent implements OnInit {
     this.indice.set(0);
     this.correctas.set(0);
     this.finalizado.set(false);
-    this.historialRespuestas = []; // Limpiar historial al reiniciar
-    this.feedbackClaseRespuesta = {}; // Limpiar feedback
+    this.historialRespuestas = []; 
+    this.feedbackClaseRespuesta = {}; 
     this.cargarTemas();
   }
 }
