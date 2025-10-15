@@ -32,8 +32,17 @@ export class ResultadosComponent {
       console.log('👉 Ahorcado:', ahorcadoData);
       this.ahorcado.set(ahorcadoData);
 
-      const mayorMenorData = await this.supabase.getTableResults('higher_lower_results', 'correct_count', false); 
-      console.log('👉 Mayor o Menor:', mayorMenorData);
+      let mayorMenorData = await this.supabase.getTableResults('higher_lower_results', 'created_at', false);
+      
+      // 👇 ORDENAMOS AQUÍ CON LA LÓGICA DE DESEMPATE
+      mayorMenorData.sort((a, b) => {
+        // Primero, ordena por más aciertos (descendente)
+        if (a.correct_count !== b.correct_count) {
+          return b.correct_count - a.correct_count;
+        }
+        // Si hay empate en aciertos, ordena por menor tiempo (ascendente)
+        return a.time_taken_ms - b.time_taken_ms;
+      });
       this.mayorMenor.set(mayorMenorData);
 
       const preguntadosData = await this.supabase.getTableResults('quiz_results', 'correct_answers', false);

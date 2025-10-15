@@ -24,6 +24,7 @@ export class GamesService {
     username?: string | null;
     correct_count: number;
     total_rounds: number;
+    time_taken_ms: number; 
   }) {
     await this.supabaseService.saveGameResult('higher_lower_results', payload);
     return true;

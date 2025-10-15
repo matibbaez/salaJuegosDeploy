@@ -48,6 +48,7 @@
     <div *ngIf="finished()" class="game-over">
       <h4>¡Fin del Juego!</h4>
       <p class="score-final">Acertaste <strong>{{ correct() }}</strong> de <strong>{{ maxRounds }}</strong> rondas.</p>
+      <p class="score-final">Tiempo: <strong>{{ (elapsedTime() / 1000) | number:'1.1-2' }} segundos</strong></p>
       <button class="btn btn-secondary" (click)="restart()">
         <i class="bi bi-arrow-clockwise"></i> Jugar otra vez
       </button>

@@ -42,20 +42,21 @@
     </div>
 
     <div class="tabla-juego" *ngIf="mostrarJuego('mayorMenor')">
-      <h3>Mayor o Menor</h3>
+      <h3>🔼🔽 Mayor o Menor</h3>
       <table class="table">
         <thead>
           <tr>
             <th>Jugador</th>
             <th>Aciertos</th>
             <th>Rondas</th>
-          </tr>
+            <th>Tiempo (s)</th> </tr>
         </thead>
         <tbody>
           <tr *ngFor="let r of mayorMenor()">
             <td data-label="Jugador">{{ r.username }}</td>
             <td data-label="Aciertos">{{ r.correct_count }}</td>
             <td data-label="Rondas">{{ r.total_rounds }}</td>
+            <td data-label="Tiempo (s)">{{ (r.time_taken_ms / 1000) | number:'1.1-2' }}</td>
           </tr>
         </tbody>
       </table>

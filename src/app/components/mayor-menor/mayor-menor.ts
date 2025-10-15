@@ -1,5 +1,5 @@
 import { Component, signal, OnInit } from '@angular/core'; 
-import { CommonModule } from '@angular/common';
+import { CommonModule, DecimalPipe } from '@angular/common';
 import { GamesService } from '../../services/games.service';
 import { AuthService } from '../../services/auth.service';
 
@@ -8,7 +8,7 @@ type Card = { suit: string; value: number; label: string };
 @Component({
   selector: 'app-mayor-menor',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, DecimalPipe],
   templateUrl: './mayor-menor.html',
   styleUrls: ['./mayor-menor.scss']
 })
@@ -21,14 +21,27 @@ export class MayorMenorComponent implements OnInit {
   animateCard = signal(false);
   finished = signal(false);
 
+  startTime: number = 0;
+  elapsedTime = signal(0);
+
   readonly maxRounds = 10;
 
   constructor(private games: GamesService, private auth: AuthService) {}
 
   ngOnInit(): void {
+    this.startGame(); // Usamos una nueva función para iniciar
+  }
+
+  // 👇 NUEVA FUNCIÓN para empezar el juego
+  startGame() {
+    this.correct.set(0);
+    this.rounds.set(0);
+    this.finished.set(false);
+    this.elapsedTime.set(0);
     this.resetDeck();
     this.draw();
-    this.triggerCardAnimation(); 
+    this.triggerCardAnimation();
+    this.startTime = Date.now(); // 👈 INICIAMOS EL CRONÓMETRO AQUÍ
   }
 
   resetDeck() {
@@ -41,7 +54,6 @@ export class MayorMenorComponent implements OnInit {
       }
     }
     
-    // mezclar
     for (let i = this.deck.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [this.deck[i], this.deck[j]] = [this.deck[j], this.deck[i]];
@@ -56,17 +68,15 @@ export class MayorMenorComponent implements OnInit {
   }
 
   draw() {
-    if (this.deck.length < 2) { // minimo 2 cartas para current y next
+    if (this.deck.length < 2) {
       this.finished.set(true); 
-      this.finishGame(); // finishGame si no hay mas cartas
+      this.finishGame();
       return; 
     }
-
-    // si es la primera vez, sacamos las dos primeras cartas
     if (!this.current) {
         this.current = this.deck.pop();
         this.next = this.deck.pop();
-    } else { // si no, la 'siguiente' se vuelve la 'actual' y sacamos una nueva
+    } else {
         this.current = this.next;
         this.next = this.deck.pop();
     }
@@ -74,13 +84,9 @@ export class MayorMenorComponent implements OnInit {
 
   async guess(higher: boolean) {
     if (!this.current || !this.next || this.finished()) return;
-
     this.rounds.update(r => r + 1);
-
     const isCorrect = higher ? this.next.value > this.current.value : this.next.value < this.current.value;
     if (isCorrect) this.correct.update(c => c + 1);
-
-    // avanzar a la siguiente carta
     this.draw();
     this.triggerCardAnimation(); 
 
@@ -91,6 +97,14 @@ export class MayorMenorComponent implements OnInit {
   }
 
   async finishGame() {
+    if (this.startTime === 0) return; // Evita calcular si el juego no ha empezado
+
+    const endTime = Date.now();
+    const duration = endTime - this.startTime; // Ahora la resta será correcta
+    this.elapsedTime.set(duration);
+    
+    this.startTime = 0; // Reseteamos el startTime para evitar errores
+
     if (this.rounds() === 0) return;
 
     const user = this.auth.getCurrentUser();
@@ -99,19 +113,16 @@ export class MayorMenorComponent implements OnInit {
         user_id: user?.id,
         username: user?.email, 
         correct_count: this.correct(),
-        total_rounds: this.rounds()
+        total_rounds: this.rounds(),
+        time_taken_ms: duration
       });
     } catch (e) {
       console.error('❌ Error al guardar resultado', e);
     }
   }
 
+  // El botón de reiniciar ahora llama a startGame
   restart() {
-    this.correct.set(0);
-    this.rounds.set(0);
-    this.finished.set(false);
-    this.resetDeck();
-    this.draw();
-    this.triggerCardAnimation(); 
+    this.startGame();
   }
 }
