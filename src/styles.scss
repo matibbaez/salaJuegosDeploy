@@ -35,12 +35,22 @@
 }
 
 /* --- ⚙️ Estilos Globales --- */
+html, body {
+  height: 100%; // Hacemos que la página ocupe el 100% de la altura
+}
+
 body {
+  margin: 0;
   background-color: var(--color-fondo);
   color: var(--color-texto);
   font-family: var(--fuente-principal);
-  /* ✨ NUEVO: Un sutil degradado para darle más vida al fondo */
   background-image: radial-gradient(circle at 50% 0%, var(--color-superficie) 0%, var(--color-fondo) 40%);
+}
+
+app-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
 }
 
 /* --- 🚀 NAVBAR (Más integrada) --- */

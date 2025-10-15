@@ -60,23 +60,23 @@
 
 </div>
 
-<div class="acciones-container text-center mt-5">
+<div class="acciones-container text-center mt-2 mb-5">
   <p class="text-muted mb-3">Revisa tus estadísticas o danos tu opinión</p>
 
   <div class="d-flex flex-wrap justify-content-center gap-3">
     <a routerLink="/resultados" class="btn btn-primary">
-      Ver mis resultados 🏆
+      Ver mis resultados 
     </a>
 
     <a routerLink="/encuesta" class="btn btn-primary">
-      Responder Encuesta 📝
+      Responder Encuesta 
     </a>
 
     <a *ngIf="usuarioLogueado"
        routerLink="/resultados-encuesta"
        class="btn"
        [ngClass]="{ 'btn-primary': esAdmin(), 'btn-secondary disabled': !esAdmin() }">
-      Resultados Encuesta 📊
+      Resultados Encuesta 
     </a>
   </div>
 </div>
